@@ -6,7 +6,7 @@
     <title>E-Voting Ketua OSIS</title>
     
     <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🗳️</text></svg>">
+    <link rel="icon" href="img/smai15alazhar.png xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🗳️</text></svg>">
     
     <!-- Tailwind CSS, Fonts, Icons, Charts -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -62,7 +62,7 @@
 <div id="view-login" class="view-section hidden flex-grow flex items-center justify-center p-4 md:p-10 relative min-h-screen w-full overflow-hidden">
     
     <button onclick="switchView('view-admin-login')" class="absolute top-6 left-6 md:left-10 flex items-center z-20 hover:scale-105 transition-all outline-none cursor-pointer" title="Area Admin">
-        <img src="https://placehold.co/150x50/transparent/0f172a?font=montserrat&text=LOGO" alt="Logo Sekolah" class="h-10 md:h-12 object-contain hover:opacity-80 transition drop-shadow-md">
+        <img src="img/smai15alazhar.png" alt="Logo Sekolah" class="h-10 md:h-12 object-contain hover:opacity-80 transition drop-shadow-md">
     </button>
 
     <div class="w-full max-w-6xl flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8 z-10 relative mt-16 md:mt-0">
@@ -70,7 +70,7 @@
         <div class="hidden lg:flex w-[55%] relative h-[550px] items-center justify-center">
             <div class="absolute w-[400px] h-[400px] bg-gradient-to-tr from-indigo-200/50 to-blue-200/50 rounded-full blur-[80px] -z-10"></div>
             
-            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=600&auto=format&fit=crop" alt="Student" class="w-72 h-[400px] object-cover rounded-[2.5rem] shadow-2xl relative z-10 border-[6px] border-white transform -rotate-2">
+            <img src="img/HP.JPG" alt="Student" class="w-72 h-[400px] object-cover rounded-[2.5rem] shadow-2xl relative z-10 border-[6px] border-white transform -rotate-2">
             
             <div class="absolute bottom-16 right-0 bg-white/95 backdrop-blur-sm p-5 rounded-[1.5rem] shadow-2xl z-20 border border-slate-50 w-56 fade-in" style="animation-delay: 0.3s;">
                 <div class="bg-[#0f172a] text-white text-[10px] font-black uppercase tracking-widest py-1.5 px-3 rounded-[0.75rem] inline-block mb-3 shadow-md">
@@ -85,9 +85,9 @@
 
             <div class="absolute top-20 left-4 bg-white/95 backdrop-blur-sm p-3.5 rounded-[1.5rem] shadow-xl flex items-center gap-4 z-20 border border-slate-50 fade-in" style="animation-delay: 0.5s;">
                 <div class="flex -space-x-3">
-                    <img class="w-9 h-9 rounded-full border-2 border-white object-cover" src="https://i.pravatar.cc/100?img=1" alt="Avatar">
-                    <img class="w-9 h-9 rounded-full border-2 border-white object-cover" src="https://i.pravatar.cc/100?img=2" alt="Avatar">
-                    <img class="w-9 h-9 rounded-full border-2 border-white object-cover" src="https://i.pravatar.cc/100?img=3" alt="Avatar">
+                    <img class="w-9 h-9 rounded-full border-2 border-white object-cover" src="img/siswa2.jpg" alt="Avatar">
+                    <img class="w-9 h-9 rounded-full border-2 border-white object-cover" src="img/siswa3.jpg" alt="Avatar">
+                    <img class="w-9 h-9 rounded-full border-2 border-white object-cover" src="img/siswa4.jpg" alt="Avatar">
                     <div class="w-9 h-9 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center text-[10px] font-bold text-slate-500">+</div>
                 </div>
                 <div>
@@ -181,7 +181,7 @@
             <div>
                 <div class="relative">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400"><i class="fas fa-user text-sm"></i></span>
-                    <input type="text" id="searchTokenNama" class="w-full pl-11 pr-4 py-4 rounded-[1rem] bg-slate-50 border border-slate-200 focus:border-[#0f172a] focus:bg-white focus:ring-1 focus:ring-[#0f172a] outline-none transition font-semibold text-sm" placeholder="Ketik nama lengkap..." autocomp<let>e="off">
+                    <input type="text" id="searchTokenNama" class="w-full pl-11 pr-4 py-4 rounded-[1rem] bg-slate-50 border border-slate-200 focus:border-[#0f172a] focus:bg-white focus:ring-1 focus:ring-[#0f172a] outline-none transition font-semibold text-sm" placeholder="Ketik nama lengkap..." autocomplete="off">
                 </div>
             </div>
             <button type="submit" class="hidden">Cari</button>
@@ -211,15 +211,6 @@
         <div class="flex gap-3">
             <button onclick="closeConfirmModal()" class="flex-1 bg-white border border-slate-200 text-slate-600 font-bold py-4 rounded-[1rem] hover:bg-slate-50 transition">Batal</button>
             <button id="confirm-btn-yes" class="flex-1 bg-[#0f172a] text-white font-bold py-4 rounded-[1rem] shadow-[0_8px_20px_-6px_rgba(15,23,42,0.4)] hover:bg-[#1e293b] transition">Ya</button>
-        </div>
-    </div>
-</div>
-
-<div id="image-modal" class="fixed inset-0 bg-[#0f172a]/70 backdrop-blur-sm flex items-center justify-center z-[120] hidden p-4" onclick="closeImageModal()">
-    <div class="relative max-w-md w-full mx-auto modal-enter" onclick="event.stopPropagation()">
-        <button type="button" onclick="closeImageModal()" class="absolute -top-4 -right-2 md:-right-4 text-slate-500 hover:text-slate-800 bg-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition z-50 border border-slate-100"><i class="fas fa-times"></i></button>
-        <div class="bg-white rounded-[2rem] shadow-2xl p-3 border border-slate-100">
-            <img id="image-modal-src" src="" class="w-full h-auto max-h-[75vh] object-contain rounded-[1.25rem] bg-slate-50" alt="Poster Paslon">
         </div>
     </div>
 </div>
@@ -510,6 +501,15 @@
     </div>
 </div>
 
+<div id="image-modal" class="fixed inset-0 bg-[#0f172a]/70 backdrop-blur-sm flex items-center justify-center z-[120] hidden p-4" onclick="closeImageModal()">
+    <div class="relative max-w-md w-full mx-auto modal-enter" onclick="event.stopPropagation()">
+        <button type="button" onclick="closeImageModal()" class="absolute -top-4 -right-2 md:-right-4 text-slate-500 hover:text-slate-800 bg-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition z-50 border border-slate-100"><i class="fas fa-times"></i></button>
+        <div class="bg-white rounded-[2rem] shadow-2xl p-3 border border-slate-100">
+            <img id="image-modal-src" src="" class="w-full h-auto max-h-[75vh] object-contain rounded-[1.25rem] bg-slate-50" alt="Poster Paslon">
+        </div>
+    </div>
+</div>
+
 <script>
 // ==========================================
 // KONFIGURASI API (UNTUK GITHUB PAGES)
@@ -517,37 +517,13 @@
 // PENTING: Masukkan Web App URL dari Google Apps Script Anda di sini.
 const GAS_URL = "https://script.google.com/macros/s/AKfycbxY3eKPuO1T9L4vvynstr00pFSzqxukoaRG1y4a7d4T-ChAFVcRzuBpGWTf7dj2u8B6/exec"; 
 
-// Data Dummy (Mock) jika Web App URL belum dipasang
-// let mockStudents = [
-//     { id: 1, 'Nama siswa': 'Ahmad Budi Santoso', 'Nama Panggilan': 'Budi', Kelas: 'X-A', Token: '12345', Status: false },
-//     { id: 2, 'Nama siswa': 'Siti Aisyah Putri', 'Nama Panggilan': 'Siti', Kelas: 'X-B', Token: '54321', Status: true },
-//     { id: 3, 'Nama siswa': 'Andi Wijaya Kusuma', 'Nama Panggilan': 'Andi', Kelas: 'XI-A', Token: '67890', Status: false },
-//     { id: 4, 'Nama siswa': 'Muhammad Rizky', 'Nama Panggilan': 'Rizky', Kelas: 'XII-IPA', Token: '11111', Status: true }
-// ];
-// let mockHasil = [ { id: 1, 'Nama Pemilih': 'Siti Aisyah Putri', Kelas: 'X-B', 'Pilihan (No Paslon)': 1 } ];
-// let mockCandidates = [
-//     { No: 1, 'Nama Ketua': 'Dimas Pratama', 'Nama Wakil': 'Putri Ayu', Visi: 'Mewujudkan OSIS yang aktif.', Misi: '1. Mengadakan pentas seni.\n2. Lomba kebersihan.', 'Foto URL': 'https://placehold.co/400x500/0f172a/ffffff?text=Paslon+1' },
-//     { No: 2, 'Nama Ketua': 'Kevin Sanjaya', 'Nama Wakil': 'Reza Rahadian', Visi: 'Sekolah bersih berprestasi.', Misi: '1. Menggalakkan Jumat Bersih.\n2. Study Club.', 'Foto URL': 'https://placehold.co/400x500/334155/ffffff?text=Paslon+2' }
-// ];
-
 // Fungsi Jembatan API menggunakan Fetch
 const api = {
     request: async (action, payloadData = {}) => {
         // Fallback: Jika URL GAS belum disetel, jalankan mode simulasi (dummy data)
         if(GAS_URL === "MASUKKAN_URL_WEB_APP_GAS_ANDA_DISINI" || !GAS_URL) {
-            console.warn("GAS_URL belum disetel! Menjalankan mode simulasi (Mock Data).");
-            return new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    if (action === 'getInitialData') resolve({ students: mockStudents, candidates: mockCandidates });
-                    else if (action === 'getResults') resolve(mockHasil);
-                    else if (action === 'submitVote') {
-                        const s = mockStudents.find(x => x.Token === payloadData.token);
-                        if(!s) reject(new Error('Token tidak valid!'));
-                        else if(s.Status) reject(new Error('Token sudah digunakan!'));
-                        else { s.Status = true; mockHasil.push({ 'Nama Pemilih': s['Nama siswa'], Kelas: s.Kelas, 'Pilihan (No Paslon)': payloadData.candidateNo }); resolve(true); }
-                    } else resolve(true); // Dummy success for CRUD
-                }, 800);
-            });
+            console.warn("GAS_URL belum disetel! Harap masukkan URL.");
+            throw new Error("Sistem belum terhubung ke database. Hubungi panitia.");
         }
         
         // Memanggil API Asli Google Apps Script via HTTP POST
@@ -715,7 +691,7 @@ document.getElementById('login-form').addEventListener('submit', (e) => {
     const token = document.getElementById('inputToken').value.trim();
     if(!token) return showToast('Masukkan Token Anda!', 'error');
     
-    const student = appState.students.find(s => s.Token === token);
+    const student = appState.students.find(s => s.Token.toString() === token);
     if(!student) return showToast('Token tidak valid atau tidak ditemukan!', 'error');
     if(student.Status === true || student.Status === 'True' || student.Status === 'TRUE') return showToast('Hak suara sudah digunakan!', 'error');
     
@@ -854,7 +830,7 @@ function renderReportTable(studentsList = null, results = null) {
     }
     
     const searchVal = document.getElementById('adminSearchReport') ? document.getElementById('adminSearchReport').value.toLowerCase() : '';
-    const filtered = listToRender.filter(s => s['Nama siswa'].toLowerCase().includes(searchVal) || s.Token.toLowerCase().includes(searchVal));
+    const filtered = listToRender.filter(s => s['Nama siswa'].toLowerCase().includes(searchVal) || s.Token.toString().toLowerCase().includes(searchVal));
     
     const tbody = document.getElementById('report-voters-tbody');
     tbody.innerHTML = '';
@@ -868,7 +844,7 @@ function renderReportTable(studentsList = null, results = null) {
 
         if(isVoted) {
             statusBadge = '<span class="bg-emerald-50 text-emerald-600 px-3 py-1.5 rounded-[0.75rem] text-[10px] font-bold uppercase border border-emerald-100"><i class="fas fa-check mr-1"></i>Sudah</span>';
-            const voteData = (results || mockHasil).find(r => r['Nama Pemilih'] === s['Nama siswa']);
+            const voteData = (results || []).find(r => r['Nama Pemilih'] === s['Nama siswa']);
             if(voteData) {
                 if (appState.isReportUnlocked) {
                     const candidate = appState.candidates.find(c => c.No === voteData['Pilihan (No Paslon)']);
@@ -937,7 +913,7 @@ function renderMasterVoterTable(studentsList = null) {
     }
     
     const searchVal = document.getElementById('adminSearchMasterVoter') ? document.getElementById('adminSearchMasterVoter').value.toLowerCase() : '';
-    const filtered = listToRender.filter(s => s['Nama siswa'].toLowerCase().includes(searchVal) || s.Token.toLowerCase().includes(searchVal));
+    const filtered = listToRender.filter(s => s['Nama siswa'].toLowerCase().includes(searchVal) || s.Token.toString().toLowerCase().includes(searchVal));
     
     const tbody = document.getElementById('master-voters-tbody');
     tbody.innerHTML = '';
