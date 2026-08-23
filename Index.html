@@ -232,7 +232,7 @@
                 <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2 px-1">Kunci Keamanan</label>
                 <div class="relative">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400"><i class="fas fa-lock text-sm"></i></span>
-                    <input type="password" id="adminPass" class="w-full pl-11 pr-4 py-4 rounded-[1rem] bg-slate-50 border border-slate-200 focus:border-[#0f172a] focus:bg-white focus:ring-1 focus:ring-[#0f172a] outline-none text-sm transition font-medium" placeholder="Password (admin123)">
+                    <input type="password" id="adminPass" class="w-full pl-11 pr-4 py-4 rounded-[1rem] bg-slate-50 border border-slate-200 focus:border-[#0f172a] focus:bg-white focus:ring-1 focus:ring-[#0f172a] outline-none text-sm transition font-medium" placeholder="Password">
                 </div>
             </div>
             <button type="submit" class="w-full bg-[#0f172a] text-white font-bold py-4 rounded-[1rem] shadow-[0_8px_20px_-6px_rgba(15,23,42,0.4)] hover:bg-[#1e293b] transition-all active:scale-[0.98]">
@@ -773,7 +773,7 @@ function confirmVote(candidateNo) {
 
 document.getElementById('admin-login-form').addEventListener('submit', (e) => {
     e.preventDefault();
-    if(document.getElementById('adminPass').value === 'admin123') { 
+    if(document.getElementById('adminPass').value === 'pilketos2026') { 
         document.getElementById('admin-login-form').reset();
         sessionStorage.setItem('isAdminLoggedIn', 'true');
         switchView('view-admin-dashboard');
