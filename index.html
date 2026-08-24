@@ -566,7 +566,7 @@
                 type="password"
                 id="adminPass"
                 class="w-full pl-11 pr-4 py-4 rounded-[1rem] bg-slate-50 border border-slate-200 focus:border-[#0f172a] focus:bg-white focus:ring-1 focus:ring-[#0f172a] outline-none text-sm transition font-medium"
-                placeholder="Password (admin123)"
+                placeholder="Password"
               />
             </div>
           </div>
@@ -1031,7 +1031,7 @@
             Otorisasi Laporan
           </h3>
           <p class="text-slate-500 text-xs mt-1.5 font-medium leading-relaxed">
-            Masukkan PIN (contoh: 1234) untuk melihat rincian.
+            Masukkan PIN untuk melihat rincian.
           </p>
         </div>
 
@@ -1187,68 +1187,68 @@
         "https://script.google.com/macros/s/AKfycbxiDIDLHDir7eCGgnc0eJtxm0_sZVlR-xPrQ62DiiAjhqg6efr8uuq5uXkfXw6JKHjsBw/exec";
 
       // Data Dummy (Mock) jika Web App URL belum dipasang
-      let mockStudents = [
-        {
-          id: 1,
-          "Nama siswa": "Ahmad Budi Santoso",
-          "Nama Panggilan": "Budi",
-          Kelas: "X-A",
-          Token: "12345",
-          Status: false,
-        },
-        {
-          id: 2,
-          "Nama siswa": "Siti Aisyah Putri",
-          "Nama Panggilan": "Siti",
-          Kelas: "X-B",
-          Token: "54321",
-          Status: true,
-        },
-        {
-          id: 3,
-          "Nama siswa": "Andi Wijaya Kusuma",
-          "Nama Panggilan": "Andi",
-          Kelas: "XI-A",
-          Token: "67890",
-          Status: false,
-        },
-        {
-          id: 4,
-          "Nama siswa": "Muhammad Rizky",
-          "Nama Panggilan": "Rizky",
-          Kelas: "XII-IPA",
-          Token: "11111",
-          Status: true,
-        },
-      ];
-      let mockHasil = [
-        {
-          id: 1,
-          "Nama Pemilih": "Siti Aisyah Putri",
-          Kelas: "X-B",
-          "Pilihan (No Paslon)": 1,
-        },
-      ];
-      let mockCandidates = [
-        {
-          No: 1,
-          "Nama Ketua": "Dimas Pratama",
-          "Nama Wakil": "Putri Ayu",
-          Visi: "Mewujudkan OSIS yang aktif.",
-          Misi: "1. Mengadakan pentas seni.\n2. Lomba kebersihan.",
-          "Foto URL":
-            "https://placehold.co/400x500/0f172a/ffffff?text=Paslon+1",
-        },
-        {
-          No: 2,
-          "Nama Ketua": "Kevin Sanjaya",
-          "Nama Wakil": "Reza Rahadian",
-          Visi: "Sekolah bersih berprestasi.",
-          Misi: "1. Menggalakkan Jumat Bersih.\n2. Study Club.",
-          "Foto URL":
-            "https://placehold.co/400x500/334155/ffffff?text=Paslon+2",
-        },
-      ];
+      //   let mockStudents = [
+      //     {
+      //       id: 1,
+      //       "Nama siswa": "Ahmad Budi Santoso",
+      //       "Nama Panggilan": "Budi",
+      //       Kelas: "X-A",
+      //       Token: "12345",
+      //       Status: false,
+      //     },
+      //     {
+      //       id: 2,
+      //       "Nama siswa": "Siti Aisyah Putri",
+      //       "Nama Panggilan": "Siti",
+      //       Kelas: "X-B",
+      //       Token: "54321",
+      //       Status: true,
+      //     },
+      //     {
+      //       id: 3,
+      //       "Nama siswa": "Andi Wijaya Kusuma",
+      //       "Nama Panggilan": "Andi",
+      //       Kelas: "XI-A",
+      //       Token: "67890",
+      //       Status: false,
+      //     },
+      //     {
+      //       id: 4,
+      //       "Nama siswa": "Muhammad Rizky",
+      //       "Nama Panggilan": "Rizky",
+      //       Kelas: "XII-IPA",
+      //       Token: "11111",
+      //       Status: true,
+      //     },
+      //   ];
+      //   let mockHasil = [
+      //     {
+      //       id: 1,
+      //       "Nama Pemilih": "Siti Aisyah Putri",
+      //       Kelas: "X-B",
+      //       "Pilihan (No Paslon)": 1,
+      //     },
+      //   ];
+      //   let mockCandidates = [
+      //     {
+      //       No: 1,
+      //       "Nama Ketua": "Dimas Pratama",
+      //       "Nama Wakil": "Putri Ayu",
+      //       Visi: "Mewujudkan OSIS yang aktif.",
+      //       Misi: "1. Mengadakan pentas seni.\n2. Lomba kebersihan.",
+      //       "Foto URL":
+      //         "https://placehold.co/400x500/0f172a/ffffff?text=Paslon+1",
+      //     },
+      //     {
+      //       No: 2,
+      //       "Nama Ketua": "Kevin Sanjaya",
+      //       "Nama Wakil": "Reza Rahadian",
+      //       Visi: "Sekolah bersih berprestasi.",
+      //       Misi: "1. Menggalakkan Jumat Bersih.\n2. Study Club.",
+      //       "Foto URL":
+      //         "https://placehold.co/400x500/334155/ffffff?text=Paslon+2",
+      //     },
+      //   ];
 
       // Fungsi Jembatan API menggunakan Fetch
       const api = {
@@ -1700,7 +1700,9 @@
         .getElementById("admin-login-form")
         .addEventListener("submit", (e) => {
           e.preventDefault();
-          if (document.getElementById("adminPass").value === "admin123") {
+          if (
+            document.getElementById("adminPass").value === "pilketosalkaba26"
+          ) {
             document.getElementById("admin-login-form").reset();
             sessionStorage.setItem("isAdminLoggedIn", "true");
             switchView("view-admin-dashboard");
@@ -1982,7 +1984,7 @@
       document.getElementById("unlock-form").addEventListener("submit", (e) => {
         e.preventDefault();
         const pin = document.getElementById("unlockPin").value;
-        if (pin === "1234") {
+        if (pin === "101189") {
           appState.isReportUnlocked = true;
           closeUnlockModal();
           document.getElementById("btn-unlock-report").classList.add("hidden");
