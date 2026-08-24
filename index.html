@@ -6,7 +6,7 @@
     <title>E-Voting Ketua OSIS</title>
     
     <!-- Favicon -->
-    <link rel="icon" href="img/smai15alazhar.png xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🗳️</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🗳️</text></svg>">
     
     <!-- Tailwind CSS, Fonts, Icons, Charts -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -42,15 +42,10 @@
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    </style>
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
 </head>
 <body class="min-h-screen text-slate-800 antialiased flex flex-col bg-gradient-to-br from-[#eef2fb] via-[#f4f7fe] to-[#e6ecf8] selection:bg-[#0f172a] selection:text-white">
-
-<div id="toast" class="fixed top-5 right-5 transform translate-x-full transition-transform duration-300 z-[100] rounded-2xl p-4 shadow-xl text-white font-semibold flex items-center gap-3 max-w-sm">
-    <i id="toast-icon" class="fas fa-info-circle text-xl"></i>
-    <span id="toast-message" class="text-sm font-medium"></span>
-</div>
 
 <div id="view-loading" class="view-section fixed inset-0 bg-[#0f172a]/40 backdrop-blur-md flex items-center justify-center z-[90]">
     <div class="bg-white p-10 rounded-[2.5rem] shadow-2xl flex flex-col items-center modal-enter border border-white/50">
@@ -62,7 +57,7 @@
 <div id="view-login" class="view-section hidden flex-grow flex items-center justify-center p-4 md:p-10 relative min-h-screen w-full overflow-hidden">
     
     <button onclick="switchView('view-admin-login')" class="absolute top-6 left-6 md:left-10 flex items-center z-20 hover:scale-105 transition-all outline-none cursor-pointer" title="Area Admin">
-        <img src="img/smai15alazhar.png" alt="Logo Sekolah" class="h-10 md:h-12 object-contain hover:opacity-80 transition drop-shadow-md">
+        <img src="https://placehold.co/150x50/transparent/0f172a?font=montserrat&text=LOGO" alt="Logo Sekolah" class="h-10 md:h-12 object-contain hover:opacity-80 transition drop-shadow-md">
     </button>
 
     <div class="w-full max-w-6xl flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8 z-10 relative mt-16 md:mt-0">
@@ -70,7 +65,7 @@
         <div class="hidden lg:flex w-[55%] relative h-[550px] items-center justify-center">
             <div class="absolute w-[400px] h-[400px] bg-gradient-to-tr from-indigo-200/50 to-blue-200/50 rounded-full blur-[80px] -z-10"></div>
             
-            <img src="img/HP.JPG" alt="Student" class="w-72 h-[400px] object-cover rounded-[2.5rem] shadow-2xl relative z-10 border-[6px] border-white transform -rotate-2">
+            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=600&auto=format&fit=crop" alt="Student" class="w-72 h-[400px] object-cover rounded-[2.5rem] shadow-2xl relative z-10 border-[6px] border-white transform -rotate-2">
             
             <div class="absolute bottom-16 right-0 bg-white/95 backdrop-blur-sm p-5 rounded-[1.5rem] shadow-2xl z-20 border border-slate-50 w-56 fade-in" style="animation-delay: 0.3s;">
                 <div class="bg-[#0f172a] text-white text-[10px] font-black uppercase tracking-widest py-1.5 px-3 rounded-[0.75rem] inline-block mb-3 shadow-md">
@@ -85,9 +80,9 @@
 
             <div class="absolute top-20 left-4 bg-white/95 backdrop-blur-sm p-3.5 rounded-[1.5rem] shadow-xl flex items-center gap-4 z-20 border border-slate-50 fade-in" style="animation-delay: 0.5s;">
                 <div class="flex -space-x-3">
-                    <img class="w-9 h-9 rounded-full border-2 border-white object-cover" src="img/siswa2.jpg" alt="Avatar">
-                    <img class="w-9 h-9 rounded-full border-2 border-white object-cover" src="img/siswa3.jpg" alt="Avatar">
-                    <img class="w-9 h-9 rounded-full border-2 border-white object-cover" src="img/siswa4.jpg" alt="Avatar">
+                    <img class="w-9 h-9 rounded-full border-2 border-white object-cover" src="https://i.pravatar.cc/100?img=1" alt="Avatar">
+                    <img class="w-9 h-9 rounded-full border-2 border-white object-cover" src="https://i.pravatar.cc/100?img=2" alt="Avatar">
+                    <img class="w-9 h-9 rounded-full border-2 border-white object-cover" src="https://i.pravatar.cc/100?img=3" alt="Avatar">
                     <div class="w-9 h-9 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center text-[10px] font-bold text-slate-500">+</div>
                 </div>
                 <div>
@@ -215,6 +210,15 @@
     </div>
 </div>
 
+<div id="image-modal" class="fixed inset-0 bg-[#0f172a]/70 backdrop-blur-sm flex items-center justify-center z-[120] hidden p-4" onclick="closeImageModal()">
+    <div class="relative max-w-md w-full mx-auto modal-enter" onclick="event.stopPropagation()">
+        <button type="button" onclick="closeImageModal()" class="absolute -top-4 -right-2 md:-right-4 text-slate-500 hover:text-slate-800 bg-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition z-50 border border-slate-100"><i class="fas fa-times"></i></button>
+        <div class="bg-white rounded-[2rem] shadow-2xl p-3 border border-slate-100">
+            <img id="image-modal-src" src="" class="w-full h-auto max-h-[75vh] object-contain rounded-[1.25rem] bg-slate-50" alt="Poster Paslon">
+        </div>
+    </div>
+</div>
+
 <div id="view-admin-login" class="view-section hidden flex items-center justify-center min-h-screen p-4 relative overflow-hidden">
     <div class="bg-white rounded-[2.5rem] p-10 md:p-12 max-w-[420px] w-full shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] border border-white fade-in relative z-10">
         <button onclick="switchView('view-login')" class="absolute top-6 left-6 text-slate-400 hover:text-[#0f172a] bg-slate-50 w-10 h-10 flex items-center justify-center rounded-full transition"><i class="fas fa-arrow-left"></i></button>
@@ -232,7 +236,7 @@
                 <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2 px-1">Kunci Keamanan</label>
                 <div class="relative">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400"><i class="fas fa-lock text-sm"></i></span>
-                    <input type="password" id="adminPass" class="w-full pl-11 pr-4 py-4 rounded-[1rem] bg-slate-50 border border-slate-200 focus:border-[#0f172a] focus:bg-white focus:ring-1 focus:ring-[#0f172a] outline-none text-sm transition font-medium" placeholder="Password">
+                    <input type="password" id="adminPass" class="w-full pl-11 pr-4 py-4 rounded-[1rem] bg-slate-50 border border-slate-200 focus:border-[#0f172a] focus:bg-white focus:ring-1 focus:ring-[#0f172a] outline-none text-sm transition font-medium" placeholder="Password (admin123)">
                 </div>
             </div>
             <button type="submit" class="w-full bg-[#0f172a] text-white font-bold py-4 rounded-[1rem] shadow-[0_8px_20px_-6px_rgba(15,23,42,0.4)] hover:bg-[#1e293b] transition-all active:scale-[0.98]">
@@ -245,7 +249,7 @@
 <div id="view-admin-dashboard" class="view-section hidden h-screen w-full flex bg-[#eef2fb]">
     <aside class="w-64 bg-white border-r border-slate-200 hidden md:flex flex-col z-20">
         <div class="p-8 border-b border-slate-100 text-center">
-            <img src="img/smai15alazhar.png" alt="Logo Admin" class="h-10 object-contain mx-auto drop-shadow-sm">
+            <img src="https://placehold.co/150x50/transparent/0f172a?font=montserrat&text=LOGO" alt="Logo Admin" class="h-10 object-contain mx-auto drop-shadow-sm">
             <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-4">Control Center</p>
         </div>
         <nav class="flex-grow p-4 space-y-2 mt-4">
@@ -438,7 +442,7 @@
         <div class="mb-8 text-center">
             <div class="w-16 h-16 bg-red-50 text-red-500 rounded-[1.25rem] flex items-center justify-center mx-auto mb-4 border border-red-100"><i class="fas fa-lock text-2xl"></i></div>
             <h3 class="text-xl font-black text-slate-800 tracking-tight">Otorisasi Laporan</h3>
-            <p class="text-slate-500 text-xs mt-1.5 font-medium leading-relaxed">Masukkan PIN untuk melihat rincian.</p>
+            <p class="text-slate-500 text-xs mt-1.5 font-medium leading-relaxed">Masukkan PIN (contoh: 1234) untuk melihat rincian.</p>
         </div>
         
         <form id="unlock-form" class="space-y-5">
@@ -501,29 +505,44 @@
     </div>
 </div>
 
-<div id="image-modal" class="fixed inset-0 bg-[#0f172a]/70 backdrop-blur-sm flex items-center justify-center z-[120] hidden p-4" onclick="closeImageModal()">
-    <div class="relative max-w-md w-full mx-auto modal-enter" onclick="event.stopPropagation()">
-        <button type="button" onclick="closeImageModal()" class="absolute -top-4 -right-2 md:-right-4 text-slate-500 hover:text-slate-800 bg-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition z-50 border border-slate-100"><i class="fas fa-times"></i></button>
-        <div class="bg-white rounded-[2rem] shadow-2xl p-3 border border-slate-100">
-            <img id="image-modal-src" src="" class="w-full h-auto max-h-[75vh] object-contain rounded-[1.25rem] bg-slate-50" alt="Poster Paslon">
-        </div>
-    </div>
-</div>
-
 <script>
 // ==========================================
 // KONFIGURASI API (UNTUK GITHUB PAGES)
 // ==========================================
 // PENTING: Masukkan Web App URL dari Google Apps Script Anda di sini.
-const GAS_URL = "https://script.google.com/macros/s/AKfycbxY3eKPuO1T9L4vvynstr00pFSzqxukoaRG1y4a7d4T-ChAFVcRzuBpGWTf7dj2u8B6/exec"; 
+const GAS_URL = "MASUKKAN_URL_WEB_APP_GAS_ANDA_DISINI"; 
+
+// Data Dummy (Mock) jika Web App URL belum dipasang
+let mockStudents = [
+    { id: 1, 'Nama siswa': 'Ahmad Budi Santoso', 'Nama Panggilan': 'Budi', Kelas: 'X-A', Token: '12345', Status: false },
+    { id: 2, 'Nama siswa': 'Siti Aisyah Putri', 'Nama Panggilan': 'Siti', Kelas: 'X-B', Token: '54321', Status: true },
+    { id: 3, 'Nama siswa': 'Andi Wijaya Kusuma', 'Nama Panggilan': 'Andi', Kelas: 'XI-A', Token: '67890', Status: false },
+    { id: 4, 'Nama siswa': 'Muhammad Rizky', 'Nama Panggilan': 'Rizky', Kelas: 'XII-IPA', Token: '11111', Status: true }
+];
+let mockHasil = [ { id: 1, 'Nama Pemilih': 'Siti Aisyah Putri', Kelas: 'X-B', 'Pilihan (No Paslon)': 1 } ];
+let mockCandidates = [
+    { No: 1, 'Nama Ketua': 'Dimas Pratama', 'Nama Wakil': 'Putri Ayu', Visi: 'Mewujudkan OSIS yang aktif.', Misi: '1. Mengadakan pentas seni.\n2. Lomba kebersihan.', 'Foto URL': 'https://placehold.co/400x500/0f172a/ffffff?text=Paslon+1' },
+    { No: 2, 'Nama Ketua': 'Kevin Sanjaya', 'Nama Wakil': 'Reza Rahadian', Visi: 'Sekolah bersih berprestasi.', Misi: '1. Menggalakkan Jumat Bersih.\n2. Study Club.', 'Foto URL': 'https://placehold.co/400x500/334155/ffffff?text=Paslon+2' }
+];
 
 // Fungsi Jembatan API menggunakan Fetch
 const api = {
     request: async (action, payloadData = {}) => {
         // Fallback: Jika URL GAS belum disetel, jalankan mode simulasi (dummy data)
         if(GAS_URL === "MASUKKAN_URL_WEB_APP_GAS_ANDA_DISINI" || !GAS_URL) {
-            console.warn("GAS_URL belum disetel! Harap masukkan URL.");
-            throw new Error("Sistem belum terhubung ke database. Hubungi panitia.");
+            console.warn("GAS_URL belum disetel! Menjalankan mode simulasi (Mock Data).");
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    if (action === 'getInitialData') resolve({ students: mockStudents, candidates: mockCandidates });
+                    else if (action === 'getResults') resolve(mockHasil);
+                    else if (action === 'submitVote') {
+                        const s = mockStudents.find(x => x.Token === payloadData.token);
+                        if(!s) reject(new Error('Token tidak valid!'));
+                        else if(s.Status) reject(new Error('Token sudah digunakan!'));
+                        else { s.Status = true; mockHasil.push({ 'Nama Pemilih': s['Nama siswa'], Kelas: s.Kelas, 'Pilihan (No Paslon)': payloadData.candidateNo }); resolve(true); }
+                    } else resolve(true); // Dummy success for CRUD
+                }, 800);
+            });
         }
         
         // Memanggil API Asli Google Apps Script via HTTP POST
@@ -584,18 +603,51 @@ function switchAdminTab(tabId) {
     document.getElementById(tabId).classList.remove('hidden');
 }
 
+let toastTimeout;
 function showToast(message, type = 'info') {
-    const toast = document.getElementById('toast');
-    const icon = document.getElementById('toast-icon');
-    document.getElementById('toast-message').innerText = message;
+    let toast = document.getElementById('toast');
     
-    toast.className = `fixed top-5 right-5 transform translate-x-full transition-transform duration-300 z-[100] rounded-2xl p-4 shadow-xl text-white font-semibold flex items-center gap-3 max-w-sm`;
-    if(type === 'error') { toast.classList.add('bg-red-500'); icon.className = 'fas fa-exclamation-triangle text-xl'; } 
-    else if(type === 'success') { toast.classList.add('bg-emerald-500'); icon.className = 'fas fa-check-circle text-xl'; } 
-    else { toast.classList.add('bg-[#0f172a]'); icon.className = 'fas fa-info-circle text-xl'; }
+    // Hapus toast lama jika ada agar tidak menumpuk di layar
+    if (toast) {
+        toast.remove();
+        clearTimeout(toastTimeout);
+    }
+
+    toast = document.createElement('div');
+    toast.id = 'toast';
     
-    requestAnimationFrame(() => toast.classList.remove('translate-x-full'));
-    setTimeout(() => toast.classList.add('translate-x-full'), 3500);
+    // Setup class dengan opacity-0 dan translate-x-12 untuk disembunyikan awalnya
+    toast.className = `fixed top-5 right-5 transform transition-all duration-300 z-[120] rounded-2xl p-4 shadow-xl text-white font-semibold flex items-center gap-3 max-w-sm opacity-0 translate-x-12 pointer-events-none`;
+    
+    let iconClass = 'fas fa-info-circle';
+    if (type === 'error') { 
+        toast.classList.add('bg-red-500'); 
+        iconClass = 'fas fa-exclamation-triangle'; 
+    } else if (type === 'success') { 
+        toast.classList.add('bg-emerald-500'); 
+        iconClass = 'fas fa-check-circle'; 
+    } else { 
+        toast.classList.add('bg-[#0f172a]'); 
+    }
+    
+    toast.innerHTML = `<i class="${iconClass} text-xl"></i><span class="text-sm font-medium">${message}</span>`;
+    document.body.appendChild(toast);
+
+    // Frame 1: Render DOM, Frame 2: Jalankan animasi masuk
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            toast.classList.remove('opacity-0', 'translate-x-12');
+        });
+    });
+
+    // Set waktu untuk menghilang dan hancurkan elemen dari HTML
+    toastTimeout = setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-x-12');
+        // Hapus dari DOM setelah animasi transisi selesai (300ms)
+        setTimeout(() => {
+            if(toast.parentNode) toast.remove();
+        }, 300);
+    }, 3500);
 }
 
 let confirmCallback = null;
@@ -691,7 +743,7 @@ document.getElementById('login-form').addEventListener('submit', (e) => {
     const token = document.getElementById('inputToken').value.trim();
     if(!token) return showToast('Masukkan Token Anda!', 'error');
     
-    const student = appState.students.find(s => s.Token.toString() === token);
+    const student = appState.students.find(s => s.Token === token);
     if(!student) return showToast('Token tidak valid atau tidak ditemukan!', 'error');
     if(student.Status === true || student.Status === 'True' || student.Status === 'TRUE') return showToast('Hak suara sudah digunakan!', 'error');
     
@@ -773,7 +825,7 @@ function confirmVote(candidateNo) {
 
 document.getElementById('admin-login-form').addEventListener('submit', (e) => {
     e.preventDefault();
-    if(document.getElementById('adminPass').value === 'pilketos2026') { 
+    if(document.getElementById('adminPass').value === 'admin123') { 
         document.getElementById('admin-login-form').reset();
         sessionStorage.setItem('isAdminLoggedIn', 'true');
         switchView('view-admin-dashboard');
@@ -830,7 +882,7 @@ function renderReportTable(studentsList = null, results = null) {
     }
     
     const searchVal = document.getElementById('adminSearchReport') ? document.getElementById('adminSearchReport').value.toLowerCase() : '';
-    const filtered = listToRender.filter(s => s['Nama siswa'].toLowerCase().includes(searchVal) || s.Token.toString().toLowerCase().includes(searchVal));
+    const filtered = listToRender.filter(s => s['Nama siswa'].toLowerCase().includes(searchVal) || s.Token.toLowerCase().includes(searchVal));
     
     const tbody = document.getElementById('report-voters-tbody');
     tbody.innerHTML = '';
@@ -844,7 +896,7 @@ function renderReportTable(studentsList = null, results = null) {
 
         if(isVoted) {
             statusBadge = '<span class="bg-emerald-50 text-emerald-600 px-3 py-1.5 rounded-[0.75rem] text-[10px] font-bold uppercase border border-emerald-100"><i class="fas fa-check mr-1"></i>Sudah</span>';
-            const voteData = (results || []).find(r => r['Nama Pemilih'] === s['Nama siswa']);
+            const voteData = (results || mockHasil).find(r => r['Nama Pemilih'] === s['Nama siswa']);
             if(voteData) {
                 if (appState.isReportUnlocked) {
                     const candidate = appState.candidates.find(c => c.No === voteData['Pilihan (No Paslon)']);
@@ -913,7 +965,7 @@ function renderMasterVoterTable(studentsList = null) {
     }
     
     const searchVal = document.getElementById('adminSearchMasterVoter') ? document.getElementById('adminSearchMasterVoter').value.toLowerCase() : '';
-    const filtered = listToRender.filter(s => s['Nama siswa'].toLowerCase().includes(searchVal) || s.Token.toString().toLowerCase().includes(searchVal));
+    const filtered = listToRender.filter(s => s['Nama siswa'].toLowerCase().includes(searchVal) || s.Token.toLowerCase().includes(searchVal));
     
     const tbody = document.getElementById('master-voters-tbody');
     tbody.innerHTML = '';
@@ -949,7 +1001,7 @@ function closeUnlockModal() {
 document.getElementById('unlock-form').addEventListener('submit', (e) => {
     e.preventDefault();
     const pin = document.getElementById('unlockPin').value;
-    if (pin === 'hanyadev') {
+    if (pin === '1234') {
         appState.isReportUnlocked = true;
         closeUnlockModal();
         document.getElementById('btn-unlock-report').classList.add('hidden');
