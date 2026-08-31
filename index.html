@@ -119,9 +119,10 @@
       class="view-section fixed inset-0 bg-[#0f172a]/40 backdrop-blur-md flex items-center justify-center z-[90]"
     >
       <div
-        class="bg-white p-10 rounded-[2.5rem] shadow-2xl flex flex-col items-center modal-enter border border-white/50"
+        class="bg-white p-10 rounded-[2.5rem] shadow-2xl flex flex-col items-center modal-enter border border-white/50 text-center"
       >
         <div
+          id="loading-spinner"
           class="animate-spin rounded-full h-14 w-14 border-4 border-slate-100 border-t-[#0f172a] mb-5"
         ></div>
         <p
@@ -130,6 +131,11 @@
         >
           Memproses Sistem...
         </p>
+        <div id="loading-error-action" class="hidden mt-4">
+          <button onclick="location.reload()" class="bg-[#0f172a] text-white px-5 py-2.5 rounded-[1rem] text-xs font-bold hover:bg-[#1e293b] transition">
+            <i class="fas fa-sync-alt mr-2"></i>Coba Lagi
+          </button>
+        </div>
       </div>
     </div>
 
@@ -307,6 +313,13 @@
           </form>
         </div>
       </div>
+
+      <!-- Footer Copyright Login -->
+      <div class="absolute bottom-4 md:bottom-6 left-0 w-full text-center z-10 pointer-events-none">
+        <p class="text-[11px] text-slate-400 font-medium tracking-wide">
+          Hak Cipta &copy; 2026 Yash Media
+        </p>
+      </div>
     </div>
 
     <div id="view-voting" class="view-section hidden min-h-screen p-4 md:p-8">
@@ -343,6 +356,13 @@
           class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           <!-- Rendered by JS -->
+        </div>
+
+        <!-- Footer Copyright Voting -->
+        <div class="mt-12 text-center pb-4">
+          <p class="text-[11px] text-slate-400 font-medium tracking-wide">
+            Hak Cipta &copy; 2026 Yash Media
+          </p>
         </div>
       </div>
     </div>
@@ -494,33 +514,97 @@
       </div>
     </div>
 
+    <!-- MODAL 2 GAMBAR BERDAMPINGAN (FOTO PASLON & POSTER KAMPANYE) -->
     <div
       id="image-modal"
-      class="fixed inset-0 bg-[#0f172a]/70 backdrop-blur-sm flex items-center justify-center z-[120] hidden p-4"
+      class="fixed inset-0 bg-[#0f172a]/95 backdrop-blur-md flex items-center justify-center z-[120] hidden p-4"
       onclick="closeImageModal()"
     >
       <div
-        class="relative max-w-md w-full mx-auto modal-enter"
+        class="relative max-w-5xl w-full mx-auto modal-enter flex flex-col items-center"
         onclick="event.stopPropagation()"
       >
+        <!-- Tombol Tutup -->
         <button
           type="button"
           onclick="closeImageModal()"
-          class="absolute -top-4 -right-2 md:-right-4 text-slate-500 hover:text-slate-800 bg-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition z-50 border border-slate-100"
+          class="absolute -top-12 right-0 text-slate-300 hover:text-white w-10 h-10 flex items-center justify-center transition z-50 text-3xl"
         >
           <i class="fas fa-times"></i>
         </button>
-        <div
-          class="bg-white rounded-[2rem] shadow-2xl p-3 border border-slate-100"
-        >
-          <img
-            id="image-modal-src"
-            src=""
-            class="w-full h-auto max-h-[75vh] object-contain rounded-[1.25rem] bg-slate-50"
-            alt="Poster Paslon"
-          />
+
+        <div class="bg-white w-full rounded-[2.5rem] shadow-2xl p-6 md:p-8 border border-slate-100 relative overflow-hidden flex flex-col items-center max-h-[90vh] overflow-y-auto no-scrollbar">
+          
+          <h3 class="text-xl font-black text-slate-800 mb-6 w-full text-center border-b pb-4 uppercase tracking-wider">
+            Galeri Kandidat
+          </h3>
+          
+          <!-- Area Gambar Sampingan (Grid 2 Kolom) -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
+            
+            <!-- Kolom Foto Paslon -->
+            <div class="flex flex-col items-center w-full group">
+              <span class="bg-indigo-50 text-indigo-600 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-widest mb-4 w-full text-center border border-indigo-100 shadow-sm">
+                <i class="fas fa-user-circle mr-2"></i>Foto Paslon
+              </span>
+              <div class="relative w-full cursor-pointer rounded-2xl overflow-hidden shadow-sm" onclick="openZoomModal(document.getElementById('image-modal-foto-src').src)">
+                <img
+                  id="image-modal-foto-src"
+                  src=""
+                  class="w-full h-auto max-h-[60vh] object-contain bg-slate-50 border border-slate-200 transition-transform duration-300 group-hover:scale-105"
+                  alt="Foto Paslon"
+                  onerror="this.src='https://placehold.co/400x500/0f172a/ffffff?text=Gagal+Memuat+Foto'"
+                />
+                <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
+                   <span class="text-white font-bold tracking-widest uppercase text-sm"><i class="fas fa-search-plus mr-2"></i>Perbesar</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Kolom Poster Kampanye -->
+            <div class="flex flex-col items-center w-full group">
+              <span class="bg-emerald-50 text-emerald-600 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-widest mb-4 w-full text-center border border-emerald-100 shadow-sm">
+                <i class="fas fa-scroll mr-2"></i>Poster Kampanye
+              </span>
+              <div class="relative w-full cursor-pointer rounded-2xl overflow-hidden shadow-sm" onclick="openZoomModal(document.getElementById('image-modal-poster-src').src)">
+                <img
+                  id="image-modal-poster-src"
+                  src=""
+                  class="w-full h-auto max-h-[60vh] object-contain bg-slate-50 border border-slate-200 transition-transform duration-300 group-hover:scale-105"
+                  alt="Poster Kampanye"
+                  onerror="this.src='https://placehold.co/400x500/334155/ffffff?text=Belum+Ada+Poster'"
+                />
+                <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
+                   <span class="text-white font-bold tracking-widest uppercase text-sm"><i class="fas fa-search-plus mr-2"></i>Perbesar</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
+    </div>
+
+    <!-- MODAL ZOOM GAMBAR FULLSCREEN -->
+    <div
+      id="zoom-modal"
+      class="fixed inset-0 bg-[#0f172a]/95 backdrop-blur-xl flex items-center justify-center z-[130] hidden p-4"
+      onclick="closeZoomModal()"
+    >
+      <button
+        type="button"
+        onclick="closeZoomModal()"
+        class="absolute top-6 right-6 md:top-10 md:right-10 text-slate-400 hover:text-white bg-white/10 hover:bg-white/20 w-12 h-12 rounded-full flex items-center justify-center transition z-50 text-xl"
+      >
+        <i class="fas fa-times"></i>
+      </button>
+      <img
+        id="zoom-modal-img"
+        src=""
+        class="max-w-full max-h-[90vh] object-contain rounded-xl shadow-2xl"
+        alt="Zoomed Image"
+        onclick="event.stopPropagation()"
+      />
     </div>
 
     <div
@@ -577,6 +661,13 @@
             Masuk Dashboard
           </button>
         </form>
+
+        <!-- Footer Copyright Admin Login -->
+        <div class="mt-8 text-center border-t border-slate-100 pt-6">
+          <p class="text-[10px] text-slate-400 font-medium tracking-wide">
+            Hak Cipta &copy; 2026 Yash Media
+          </p>
+        </div>
       </div>
     </div>
 
@@ -990,7 +1081,6 @@
                     >
                       <th class="p-4 w-16 text-center">No</th>
                       <th class="p-4">Pasangan Calon</th>
-                      <th class="p-4">Poster</th>
                       <th class="p-4 text-center">Aksi CRUD</th>
                     </tr>
                   </thead>
@@ -1031,7 +1121,7 @@
             Otorisasi Laporan
           </h3>
           <p class="text-slate-500 text-xs mt-1.5 font-medium leading-relaxed">
-            Masukkan PIN untuk melihat rincian.
+            Masukkan PIN (contoh: 1234) untuk melihat rincian.
           </p>
         </div>
 
@@ -1063,12 +1153,13 @@
       </div>
     </div>
 
+    <!-- MODAL TAMBAH/EDIT PASLON (DUA FILE UPLOAD DENGAN REAL-TIME PREVIEW) -->
     <div
       id="candidate-modal"
       class="fixed inset-0 bg-[#0f172a]/40 backdrop-blur-md flex items-center justify-center z-[85] hidden p-4"
     >
       <div
-        class="bg-white rounded-[2.5rem] shadow-2xl p-8 md:p-10 max-w-md w-full mx-auto modal-enter relative border border-white/50 max-h-[90vh] overflow-y-auto no-scrollbar"
+        class="bg-white rounded-[2.5rem] shadow-2xl p-8 md:p-10 max-w-2xl w-full mx-auto modal-enter relative border border-white/50 max-h-[90vh] overflow-y-auto no-scrollbar"
       >
         <button
           type="button"
@@ -1092,30 +1183,34 @@
 
         <form id="candidate-form" class="space-y-4">
           <input type="hidden" id="editCandidateNo" value="" />
-          <div>
-            <label
-              class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2"
-              >Nama Ketua</label
-            >
-            <input
-              type="text"
-              id="namaKetua"
-              required
-              class="w-full px-4 py-3 rounded-[1rem] bg-slate-50 border border-slate-200 focus:border-[#0f172a] focus:bg-white focus:ring-1 focus:ring-[#0f172a] outline-none transition text-sm font-semibold text-slate-700"
-            />
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label
+                class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2"
+                >Nama Ketua</label
+              >
+              <input
+                type="text"
+                id="namaKetua"
+                required
+                class="w-full px-4 py-3 rounded-[1rem] bg-slate-50 border border-slate-200 focus:border-[#0f172a] focus:bg-white focus:ring-1 focus:ring-[#0f172a] outline-none transition text-sm font-semibold text-slate-700"
+              />
+            </div>
+            <div>
+              <label
+                class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2"
+                >Nama Wakil</label
+              >
+              <input
+                type="text"
+                id="namaWakil"
+                required
+                class="w-full px-4 py-3 rounded-[1rem] bg-slate-50 border border-slate-200 focus:border-[#0f172a] focus:bg-white focus:ring-1 focus:ring-[#0f172a] outline-none transition text-sm font-semibold text-slate-700"
+              />
+            </div>
           </div>
-          <div>
-            <label
-              class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2"
-              >Nama Wakil</label
-            >
-            <input
-              type="text"
-              id="namaWakil"
-              required
-              class="w-full px-4 py-3 rounded-[1rem] bg-slate-50 border border-slate-200 focus:border-[#0f172a] focus:bg-white focus:ring-1 focus:ring-[#0f172a] outline-none transition text-sm font-semibold text-slate-700"
-            />
-          </div>
+
           <div>
             <label
               class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2"
@@ -1138,33 +1233,59 @@
               class="w-full px-4 py-3 rounded-[1rem] bg-slate-50 border border-slate-200 focus:border-[#0f172a] focus:bg-white focus:ring-1 focus:ring-[#0f172a] outline-none transition text-sm font-semibold text-slate-700 h-28 resize-none"
             ></textarea>
           </div>
-          <div>
-            <label
-              class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2"
-              >Foto / Poster</label
-            >
-            <div
-              id="edit-photo-preview"
-              class="hidden mb-3 p-3 bg-slate-50 rounded-[1rem] border border-slate-200 text-center"
-            >
-              <p
-                class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2"
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label
+                class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2"
+                >Upload Foto Diri</label
               >
-                Pratinjau Foto
-              </p>
-              <img
-                src=""
-                id="preview-img"
-                class="h-24 w-auto mx-auto object-contain rounded-lg shadow-sm bg-white border border-slate-100"
+              <div
+                id="edit-photo-preview"
+                class="hidden mb-3 p-3 bg-slate-50 rounded-[1rem] border border-slate-200 text-center"
+              >
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Pratinjau Foto</p>
+                <img
+                  src=""
+                  id="preview-img"
+                  class="h-24 w-auto mx-auto object-contain rounded-lg shadow-sm bg-white border border-slate-100"
+                  onerror="this.src='https://placehold.co/400x500/0f172a/ffffff?text=Gagal+Memuat'"
+                />
+              </div>
+              <input
+                type="file"
+                id="fotoPaslon"
+                accept="image/*"
+                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[1rem] text-xs font-semibold text-slate-600 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-[#0f172a] file:text-white hover:file:bg-slate-800 transition cursor-pointer"
               />
             </div>
-            <input
-              type="file"
-              id="fotoPaslon"
-              accept="image/*"
-              class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[1rem] text-xs font-semibold text-slate-600 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-[#0f172a] file:text-white hover:file:bg-slate-800 transition cursor-pointer"
-            />
+            
+            <div>
+              <label
+                class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2"
+                >Upload Poster Kampanye</label
+              >
+              <div
+                id="edit-poster-preview"
+                class="hidden mb-3 p-3 bg-slate-50 rounded-[1rem] border border-slate-200 text-center"
+              >
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Pratinjau Poster</p>
+                <img
+                  src=""
+                  id="preview-poster-img"
+                  class="h-24 w-auto mx-auto object-contain rounded-lg shadow-sm bg-white border border-slate-100"
+                  onerror="this.src='https://placehold.co/400x500/334155/ffffff?text=Gagal+Memuat'"
+                />
+              </div>
+              <input
+                type="file"
+                id="posterPaslon"
+                accept="image/*"
+                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[1rem] text-xs font-semibold text-slate-600 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-[#334155] file:text-white hover:file:bg-slate-700 transition cursor-pointer"
+              />
+            </div>
           </div>
+
           <div class="pt-4 mt-2 border-t border-slate-100">
             <button
               type="submit"
@@ -1182,112 +1303,87 @@
       // ==========================================
       // KONFIGURASI API (UNTUK GITHUB PAGES)
       // ==========================================
-      // PENTING: Masukkan Web App URL dari Google Apps Script Anda di sini.
-      const GAS_URL =
-        "https://script.google.com/macros/s/AKfycbxiDIDLHDir7eCGgnc0eJtxm0_sZVlR-xPrQ62DiiAjhqg6efr8uuq5uXkfXw6JKHjsBw/exec";
+      let GAS_URL =
+        "https://script.google.com/macros/s/AKfycbx8hK-yzpkr-ko_pACXwjdJrKz98tG70MUKTHpQLCI47XF5iPXWZD54kKOq-6wm0-lc/exec";
 
-      // Data Dummy (Mock) jika Web App URL belum dipasang
-      //   let mockStudents = [
-      //     {
-      //       id: 1,
-      //       "Nama siswa": "Ahmad Budi Santoso",
-      //       "Nama Panggilan": "Budi",
-      //       Kelas: "X-A",
-      //       Token: "12345",
-      //       Status: false,
-      //     },
-      //     {
-      //       id: 2,
-      //       "Nama siswa": "Siti Aisyah Putri",
-      //       "Nama Panggilan": "Siti",
-      //       Kelas: "X-B",
-      //       Token: "54321",
-      //       Status: true,
-      //     },
-      //     {
-      //       id: 3,
-      //       "Nama siswa": "Andi Wijaya Kusuma",
-      //       "Nama Panggilan": "Andi",
-      //       Kelas: "XI-A",
-      //       Token: "67890",
-      //       Status: false,
-      //     },
-      //     {
-      //       id: 4,
-      //       "Nama siswa": "Muhammad Rizky",
-      //       "Nama Panggilan": "Rizky",
-      //       Kelas: "XII-IPA",
-      //       Token: "11111",
-      //       Status: true,
-      //     },
-      //   ];
-      //   let mockHasil = [
-      //     {
-      //       id: 1,
-      //       "Nama Pemilih": "Siti Aisyah Putri",
-      //       Kelas: "X-B",
-      //       "Pilihan (No Paslon)": 1,
-      //     },
-      //   ];
-      //   let mockCandidates = [
-      //     {
-      //       No: 1,
-      //       "Nama Ketua": "Dimas Pratama",
-      //       "Nama Wakil": "Putri Ayu",
-      //       Visi: "Mewujudkan OSIS yang aktif.",
-      //       Misi: "1. Mengadakan pentas seni.\n2. Lomba kebersihan.",
-      //       "Foto URL":
-      //         "https://placehold.co/400x500/0f172a/ffffff?text=Paslon+1",
-      //     },
-      //     {
-      //       No: 2,
-      //       "Nama Ketua": "Kevin Sanjaya",
-      //       "Nama Wakil": "Reza Rahadian",
-      //       Visi: "Sekolah bersih berprestasi.",
-      //       Misi: "1. Menggalakkan Jumat Bersih.\n2. Study Club.",
-      //       "Foto URL":
-      //         "https://placehold.co/400x500/334155/ffffff?text=Paslon+2",
-      //     },
-      //   ];
+      function formatImageUrl(url) {
+        if (!url) return "https://placehold.co/400x500/0f172a/ffffff?text=Kosong";
+        
+        const match = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) || url.match(/id=([a-zA-Z0-9_-]+)/);
+        if (match && match[1]) {
+          return `https://drive.google.com/thumbnail?id=${match[1]}&sz=w1000`;
+        }
+        return url; 
+      }
 
-      // Fungsi Jembatan API menggunakan Fetch
+      // FITUR REAL-TIME PREVIEW SAAT GAMBAR DIPILIH
+      document.getElementById('fotoPaslon').addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+          document.getElementById('preview-img').src = URL.createObjectURL(file);
+          document.getElementById('edit-photo-preview').classList.remove('hidden');
+        }
+      });
+
+      document.getElementById('posterPaslon').addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+          document.getElementById('preview-poster-img').src = URL.createObjectURL(file);
+          document.getElementById('edit-poster-preview').classList.remove('hidden');
+        }
+      });
+
+      // Data Dummy (Mock)
+      let mockStudents = [
+        { id: 1, "Nama siswa": "Ahmad Budi Santoso", "Nama Panggilan": "Budi", Kelas: "X-A", Token: "12345", Status: false },
+        { id: 2, "Nama siswa": "Siti Aisyah Putri", "Nama Panggilan": "Siti", Kelas: "X-B", Token: "54321", Status: true },
+        { id: 3, "Nama siswa": "Andi Wijaya Kusuma", "Nama Panggilan": "Andi", Kelas: "XI-A", Token: "67890", Status: false },
+        { id: 4, "Nama siswa": "Muhammad Rizky", "Nama Panggilan": "Rizky", Kelas: "XII-IPA", Token: "11111", Status: true },
+      ];
+      let mockHasil = [{ id: 1, "Nama Pemilih": "Siti Aisyah Putri", Kelas: "X-B", "Pilihan (No Paslon)": 1 }];
+      let mockCandidates = [
+        {
+          No: 1,
+          "Nama Ketua": "Dimas Pratama",
+          "Nama Wakil": "Putri Ayu",
+          Visi: "Mewujudkan OSIS yang aktif.",
+          Misi: "1. Mengadakan pentas seni.\n2. Lomba kebersihan.",
+          "Foto URL": "https://placehold.co/400x500/0f172a/ffffff?text=Foto+1",
+          "Poster URL": "https://placehold.co/400x500/334155/ffffff?text=Poster+1",
+        },
+        {
+          No: 2,
+          "Nama Ketua": "Kevin Sanjaya",
+          "Nama Wakil": "Reza Rahadian",
+          Visi: "Sekolah bersih berprestasi.",
+          Misi: "1. Menggalakkan Jumat Bersih.\n2. Study Club.",
+          "Foto URL": "https://placehold.co/400x500/0f172a/ffffff?text=Foto+2",
+          "Poster URL": "https://placehold.co/400x500/334155/ffffff?text=Poster+2",
+        },
+      ];
+
       const api = {
         request: async (action, payloadData = {}) => {
-          // Fallback: Jika URL GAS belum disetel, jalankan mode simulasi (dummy data)
           if (GAS_URL === "MASUKKAN_URL_WEB_APP_GAS_ANDA_DISINI" || !GAS_URL) {
-            console.warn(
-              "GAS_URL belum disetel! Menjalankan mode simulasi (Mock Data).",
-            );
+            console.warn("GAS_URL belum disetel! Menjalankan mode simulasi.");
             return new Promise((resolve, reject) => {
               setTimeout(() => {
-                if (action === "getInitialData")
-                  resolve({
-                    students: mockStudents,
-                    candidates: mockCandidates,
-                  });
+                if (action === "getInitialData") resolve({ students: mockStudents, candidates: mockCandidates });
                 else if (action === "getResults") resolve(mockHasil);
                 else if (action === "submitVote") {
-                  const s = mockStudents.find(
-                    (x) => x.Token === payloadData.token,
-                  );
+                  const s = mockStudents.find((x) => String(x.Token) === String(payloadData.token));
                   if (!s) reject(new Error("Token tidak valid!"));
-                  else if (s.Status)
-                    reject(new Error("Token sudah digunakan!"));
+                  else if (s.Status) reject(new Error("Token sudah digunakan!"));
                   else {
                     s.Status = true;
-                    mockHasil.push({
-                      "Nama Pemilih": s["Nama siswa"],
-                      Kelas: s.Kelas,
-                      "Pilihan (No Paslon)": payloadData.candidateNo,
-                    });
+                    mockHasil.push({ "Nama Pemilih": s["Nama siswa"], Kelas: s.Kelas, "Pilihan (No Paslon)": payloadData.candidateNo });
                     resolve(true);
                   }
-                } else resolve(true); // Dummy success for CRUD
+                } else resolve(true);
               }, 800);
             });
           }
 
-          // Memanggil API Asli Google Apps Script via HTTP POST
           try {
             const response = await fetch(GAS_URL, {
               method: "POST",
@@ -1301,10 +1397,8 @@
             throw new Error("Koneksi API Gagal: " + e.message);
           }
         },
-
         getInitialData: () => api.request("getInitialData"),
-        submitVote: (token, candidateNo) =>
-          api.request("submitVote", { token, candidateNo }),
+        submitVote: (token, candidateNo) => api.request("submitVote", { token, candidateNo }),
         addCandidate: (data) => api.request("addCandidate", data),
         updateCandidate: (data) => api.request("updateCandidate", data),
         deleteCandidate: (no) => api.request("deleteCandidate", { no }),
@@ -1317,51 +1411,34 @@
         currentUser: null,
         isReportUnlocked: false,
       };
+      
       let voteChartInstance = null;
       let turnoutChartInstance = null;
 
       function switchView(viewId) {
-        document
-          .querySelectorAll(".view-section")
-          .forEach((el) => el.classList.add("hidden"));
+        document.querySelectorAll(".view-section").forEach((el) => el.classList.add("hidden"));
         document.getElementById(viewId).classList.remove("hidden");
       }
 
       function switchAdminTab(tabId) {
         document.querySelectorAll(".admin-tab-btn").forEach((btn) => {
-          btn.classList.remove(
-            "bg-indigo-50",
-            "text-indigo-600",
-            "border-indigo-100",
-          );
+          btn.classList.remove("bg-indigo-50", "text-indigo-600", "border-indigo-100");
           btn.classList.add("text-slate-500", "border-transparent");
         });
         const activeBtn = document.getElementById("btn-" + tabId);
         if (activeBtn) {
           activeBtn.classList.remove("text-slate-500", "border-transparent");
-          activeBtn.classList.add(
-            "bg-indigo-50",
-            "text-indigo-600",
-            "border-indigo-100",
-          );
+          activeBtn.classList.add("bg-indigo-50", "text-indigo-600", "border-indigo-100");
         }
 
         document.querySelectorAll(".admin-mob-tab").forEach((btn) => {
-          btn.classList.remove(
-            "border-indigo-600",
-            "text-indigo-600",
-            "bg-indigo-50/50",
-          );
+          btn.classList.remove("border-indigo-600", "text-indigo-600", "bg-indigo-50/50");
           btn.classList.add("border-transparent", "text-slate-400");
         });
         const activeMobBtn = document.getElementById("btn-mob-" + tabId);
         if (activeMobBtn) {
           activeMobBtn.classList.remove("border-transparent", "text-slate-400");
-          activeMobBtn.classList.add(
-            "border-indigo-600",
-            "text-indigo-600",
-            "bg-indigo-50/50",
-          );
+          activeMobBtn.classList.add("border-indigo-600", "text-indigo-600", "bg-indigo-50/50");
         }
 
         const titleMap = {
@@ -1371,17 +1448,13 @@
         };
         document.getElementById("admin-page-title").innerText = titleMap[tabId];
 
-        document
-          .querySelectorAll(".admin-tab-content")
-          .forEach((el) => el.classList.add("hidden"));
+        document.querySelectorAll(".admin-tab-content").forEach((el) => el.classList.add("hidden"));
         document.getElementById(tabId).classList.remove("hidden");
       }
 
       let toastTimeout;
       function showToast(message, type = "info") {
         let toast = document.getElementById("toast");
-
-        // Hapus toast lama jika ada agar tidak menumpuk di layar
         if (toast) {
           toast.remove();
           clearTimeout(toastTimeout);
@@ -1389,8 +1462,6 @@
 
         toast = document.createElement("div");
         toast.id = "toast";
-
-        // Setup class dengan opacity-0 dan translate-x-12 untuk disembunyikan awalnya
         toast.className = `fixed top-5 right-5 transform transition-all duration-300 z-[120] rounded-2xl p-4 shadow-xl text-white font-semibold flex items-center gap-3 max-w-sm opacity-0 translate-x-12 pointer-events-none`;
 
         let iconClass = "fas fa-info-circle";
@@ -1407,17 +1478,14 @@
         toast.innerHTML = `<i class="${iconClass} text-xl"></i><span class="text-sm font-medium">${message}</span>`;
         document.body.appendChild(toast);
 
-        // Frame 1: Render DOM, Frame 2: Jalankan animasi masuk
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
             toast.classList.remove("opacity-0", "translate-x-12");
           });
         });
 
-        // Set waktu untuk menghilang dan hancurkan elemen dari HTML
         toastTimeout = setTimeout(() => {
           toast.classList.add("opacity-0", "translate-x-12");
-          // Hapus dari DOM setelah animasi transisi selesai (300ms)
           setTimeout(() => {
             if (toast.parentNode) toast.remove();
           }, 300);
@@ -1425,15 +1493,7 @@
       }
 
       let confirmCallback = null;
-      function showConfirmModal(
-        title,
-        text,
-        confirmBtnText,
-        iconClass,
-        iconBgClass,
-        btnClass,
-        callback,
-      ) {
+      function showConfirmModal(title, text, confirmBtnText, iconClass, iconBgClass, btnClass, callback) {
         document.getElementById("confirm-title").innerText = title;
         document.getElementById("confirm-modal-text").innerHTML = text;
 
@@ -1441,10 +1501,8 @@
         btnYes.innerText = confirmBtnText;
         btnYes.className = `flex-1 bg-[#0f172a] text-white font-bold py-4 rounded-[1rem] shadow-[0_8px_20px_-6px_rgba(15,23,42,0.4)] hover:bg-[#1e293b] transition-all active:scale-[0.98]`;
 
-        document.getElementById("confirm-icon").className =
-          `${iconClass} text-3xl`;
-        document.getElementById("confirm-icon-bg").className =
-          `w-20 h-20 rounded-[1.5rem] flex items-center justify-center mx-auto mb-5 border border-slate-100 ${iconBgClass}`;
+        document.getElementById("confirm-icon").className = `${iconClass} text-3xl`;
+        document.getElementById("confirm-icon-bg").className = `w-20 h-20 rounded-[1.5rem] flex items-center justify-center mx-auto mb-5 border border-slate-100 ${iconBgClass}`;
 
         confirmCallback = callback;
         document.getElementById("confirm-modal").classList.remove("hidden");
@@ -1453,17 +1511,13 @@
         document.getElementById("confirm-modal").classList.add("hidden");
         confirmCallback = null;
       }
-      document
-        .getElementById("confirm-btn-yes")
-        .addEventListener("click", () => {
-          if (confirmCallback) confirmCallback();
-        });
+      document.getElementById("confirm-btn-yes").addEventListener("click", () => {
+        if (confirmCallback) confirmCallback();
+      });
 
       function setupAutocomplete(inputElement, dataList) {
         inputElement.addEventListener("input", function (e) {
-          let listContainer,
-            itemDiv,
-            val = this.value;
+          let listContainer, itemDiv, val = this.value;
           closeAllLists();
           if (!val) return false;
 
@@ -1472,27 +1526,18 @@
           this.parentNode.appendChild(listContainer);
 
           let matches = dataList.filter((item) =>
-            item["Nama siswa"].toLowerCase().includes(val.toLowerCase()),
+            String(item["Nama siswa"]).toLowerCase().includes(val.toLowerCase()),
           );
 
           matches.slice(0, 5).forEach((item) => {
             itemDiv = document.createElement("DIV");
-            const isUsed =
-              item.Status === true ||
-              item.Status === "True" ||
-              item.Status === "TRUE";
-            itemDiv.className =
-              "autocomplete-item " + (isUsed ? "disabled" : "");
+            const isUsed = item.Status === true || item.Status === "True" || item.Status === "TRUE";
+            itemDiv.className = "autocomplete-item " + (isUsed ? "disabled" : "");
 
-            let matchIndex = item["Nama siswa"]
-              .toLowerCase()
-              .indexOf(val.toLowerCase());
-            let before = item["Nama siswa"].substring(0, matchIndex);
-            let matchText = item["Nama siswa"].substring(
-              matchIndex,
-              matchIndex + val.length,
-            );
-            let after = item["Nama siswa"].substring(matchIndex + val.length);
+            let matchIndex = String(item["Nama siswa"]).toLowerCase().indexOf(val.toLowerCase());
+            let before = String(item["Nama siswa"]).substring(0, matchIndex);
+            let matchText = String(item["Nama siswa"]).substring(matchIndex, matchIndex + val.length);
+            let after = String(item["Nama siswa"]).substring(matchIndex + val.length);
 
             let htmlContent = `<div><span class="font-bold text-slate-700">${before}<strong class="text-[#0f172a] font-black">${matchText}</strong>${after}</span>`;
             htmlContent += `<span class="block text-xs text-slate-400 mt-0.5 font-medium"><i class="fas fa-layer-group mr-1"></i>${item.Kelas}</span></div>`;
@@ -1509,21 +1554,17 @@
               inputElement.value = item["Nama siswa"];
               closeAllLists();
               if (inputElement.id === "searchTokenNama")
-                document
-                  .getElementById("token-search-form")
-                  .dispatchEvent(new Event("submit"));
+                document.getElementById("token-search-form").dispatchEvent(new Event("submit"));
             });
             listContainer.appendChild(itemDiv);
           });
         });
       }
+      
       function closeAllLists(elmnt) {
         var x = document.getElementsByClassName("autocomplete-items");
         for (var i = 0; i < x.length; i++) {
-          if (
-            elmnt != x[i] &&
-            elmnt != document.getElementById("searchTokenNama")
-          )
+          if (elmnt != x[i] && elmnt != document.getElementById("searchTokenNama"))
             x[i].parentNode.removeChild(x[i]);
         }
       }
@@ -1534,54 +1575,36 @@
       function openTokenModal() {
         document.getElementById("token-search-form").reset();
         document.getElementById("token-result-area").classList.add("hidden");
-        document
-          .getElementById("token-search-modal")
-          .classList.remove("hidden");
+        document.getElementById("token-search-modal").classList.remove("hidden");
       }
       function closeTokenModal() {
         document.getElementById("token-search-modal").classList.add("hidden");
       }
 
-      document
-        .getElementById("token-search-form")
-        .addEventListener("submit", (e) => {
-          e.preventDefault();
-          const nama = document.getElementById("searchTokenNama").value;
-          if (!nama)
-            return showToast("Masukkan nama terlebih dahulu!", "error");
+      document.getElementById("token-search-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const nama = document.getElementById("searchTokenNama").value;
+        if (!nama) return showToast("Masukkan nama terlebih dahulu!", "error");
 
-          const student = appState.students.find(
-            (s) => s["Nama siswa"].toLowerCase() === nama.toLowerCase(),
-          );
-          if (!student) {
-            showToast("Nama tidak ditemukan dalam database.", "error");
-            document
-              .getElementById("token-result-area")
-              .classList.add("hidden");
-            return;
-          }
-          if (
-            student.Status === true ||
-            student.Status === "True" ||
-            student.Status === "TRUE"
-          ) {
-            showToast("Siswa ini sudah memilih.", "error");
-            document
-              .getElementById("token-result-area")
-              .classList.add("hidden");
-            return;
-          }
+        const student = appState.students.find((s) => String(s["Nama siswa"]).toLowerCase() === nama.toLowerCase());
+        if (!student) {
+          showToast("Nama tidak ditemukan dalam database.", "error");
+          document.getElementById("token-result-area").classList.add("hidden");
+          return;
+        }
+        if (student.Status === true || student.Status === "True" || student.Status === "TRUE") {
+          showToast("Siswa ini sudah memilih.", "error");
+          document.getElementById("token-result-area").classList.add("hidden");
+          return;
+        }
 
-          document.getElementById("found-token").innerText = student.Token;
-          document
-            .getElementById("token-result-area")
-            .classList.remove("hidden");
-          showToast("Token berhasil ditemukan!", "success");
-        });
+        document.getElementById("found-token").innerText = student.Token;
+        document.getElementById("token-result-area").classList.remove("hidden");
+        showToast("Token berhasil ditemukan!", "success");
+      });
 
       function useToken() {
-        document.getElementById("inputToken").value =
-          document.getElementById("found-token").innerText;
+        document.getElementById("inputToken").value = document.getElementById("found-token").innerText;
         closeTokenModal();
       }
 
@@ -1590,14 +1613,9 @@
         const token = document.getElementById("inputToken").value.trim();
         if (!token) return showToast("Masukkan Token Anda!", "error");
 
-        const student = appState.students.find((s) => s.Token === token);
-        if (!student)
-          return showToast("Token tidak valid atau tidak ditemukan!", "error");
-        if (
-          student.Status === true ||
-          student.Status === "True" ||
-          student.Status === "TRUE"
-        )
+        const student = appState.students.find((s) => String(s.Token) === token);
+        if (!student) return showToast("Token tidak valid atau tidak ditemukan!", "error");
+        if (student.Status === true || student.Status === "True" || student.Status === "TRUE")
           return showToast("Hak suara sudah digunakan!", "error");
 
         appState.currentUser = {
@@ -1605,13 +1623,9 @@
           kelas: student.Kelas,
           token: student.Token,
         };
-        sessionStorage.setItem(
-          "currentUser",
-          JSON.stringify(appState.currentUser),
-        );
+        sessionStorage.setItem("currentUser", JSON.stringify(appState.currentUser));
 
-        document.getElementById("welcome-name").innerText =
-          student["Nama Panggilan"] || student["Nama siswa"].split(" ")[0];
+        document.getElementById("welcome-name").innerText = student["Nama Panggilan"] || student["Nama siswa"].split(" ")[0];
         switchView("view-voting");
       });
 
@@ -1632,22 +1646,19 @@
         container.innerHTML = "";
 
         if (appState.candidates.length === 0)
-          return (container.innerHTML =
-            '<div class="col-span-full text-center text-slate-500 py-10 bg-white rounded-[2rem]">Belum ada data Pasangan Calon.</div>');
+          return (container.innerHTML = '<div class="col-span-full text-center text-slate-500 py-10 bg-white rounded-[2rem]">Belum ada data Pasangan Calon.</div>');
 
         appState.candidates.forEach((c) => {
-          const misiList = c.Misi.split("\n")
-            .filter((m) => m.trim() !== "")
-            .map((m) => `<li class="mb-1.5">${m}</li>`)
-            .join("");
+          const misiList = (c.Misi || "").toString().split("\n").filter((m) => m.trim() !== "").map((m) => `<li class="mb-1.5">${m}</li>`).join("");
           container.innerHTML += `
             <div class="bg-white rounded-[2.5rem] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] border border-white flex flex-col overflow-hidden fade-in group relative">
-                <div class="relative h-72 bg-slate-100 overflow-hidden cursor-pointer" onclick="openImageModal('${c["Foto URL"]}')" title="Klik untuk perbesar foto">
-                    <img src="${c["Foto URL"]}" alt="Paslon ${c.No}" class="w-full h-full object-cover object-top transition duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/400x500'">
+                <div class="relative h-72 bg-slate-100 overflow-hidden cursor-pointer" onclick="openImageModal('${c["Foto URL"]}', '${c["Poster URL"]}')" title="Klik untuk lihat galeri Paslon">
+                    
+                    <img src="${formatImageUrl(c["Foto URL"])}" alt="Paslon ${c.No}" class="w-full h-full object-cover object-top transition duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/400x500/0f172a/ffffff?text=Gagal+Memuat'">
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/30 to-transparent"></div>
                     
                     <div class="absolute top-6 right-6 px-4 py-2 bg-black/40 backdrop-blur-md rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition duration-300 z-20 border border-white/20 shadow-xl gap-2 font-bold text-[10px] uppercase tracking-wider">
-                        <i class="fas fa-search-plus"></i> Lihat Poster
+                        <i class="fas fa-search-plus"></i> Lihat Galeri
                     </div>
 
                     <div class="absolute bottom-6 left-6 right-6">
@@ -1696,69 +1707,50 @@
         );
       }
 
-      document
-        .getElementById("admin-login-form")
-        .addEventListener("submit", (e) => {
-          e.preventDefault();
-          if (
-            document.getElementById("adminPass").value === "pilketosalkaba26"
-          ) {
-            document.getElementById("admin-login-form").reset();
-            sessionStorage.setItem("isAdminLoggedIn", "true");
-            switchView("view-admin-dashboard");
-            initAdminDashboard();
-            showToast("Login Admin Berhasil", "success");
-          } else {
-            showToast("Password Salah!", "error");
-          }
-        });
+      document.getElementById("admin-login-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (document.getElementById("adminPass").value === "pilketosalkaba") {
+          document.getElementById("admin-login-form").reset();
+          sessionStorage.setItem("isAdminLoggedIn", "true");
+          switchView("view-admin-dashboard");
+          initAdminDashboard();
+          showToast("Login Admin Berhasil", "success");
+        } else {
+          showToast("Password Salah!", "error");
+        }
+      });
 
       async function initAdminDashboard() {
         const classFilter = document.getElementById("globalClassFilter");
-        const classes = [
-          ...new Set(appState.students.map((s) => s.Kelas)),
-        ].sort();
+        const classes = [...new Set(appState.students.map((s) => s.Kelas))].sort();
         classFilter.innerHTML = '<option value="ALL">Semua Kelas</option>';
-        classes.forEach(
-          (c) =>
-            (classFilter.innerHTML += `<option value="${c}">${c}</option>`),
-        );
-
+        classes.forEach((c) => (classFilter.innerHTML += `<option value="${c}">${c}</option>`));
         switchAdminTab("tab-dashboard");
         await updateAdminDashboardData();
       }
 
       async function updateAdminDashboardData() {
         const filterClass = document.getElementById("globalClassFilter").value;
-
         let filteredStudents = appState.students;
+        
         if (filterClass !== "ALL") {
-          filteredStudents = appState.students.filter(
-            (s) => s.Kelas === filterClass,
-          );
-          document.getElementById("report-table-info").innerText =
-            `(Filter: ${filterClass})`;
+          filteredStudents = appState.students.filter((s) => s.Kelas === filterClass);
+          document.getElementById("report-table-info").innerText = `(Filter: ${filterClass})`;
         } else {
-          document.getElementById("report-table-info").innerText =
-            `(Semua Kelas)`;
+          document.getElementById("report-table-info").innerText = `(Semua Kelas)`;
         }
 
         const total = filteredStudents.length;
-        const voted = filteredStudents.filter(
-          (s) =>
-            s.Status === true || s.Status === "True" || s.Status === "TRUE",
-        ).length;
+        const voted = filteredStudents.filter((s) => s.Status === true || s.Status === "True" || s.Status === "TRUE").length;
         document.getElementById("admin-total-pemilih").innerText = total;
         document.getElementById("admin-sudah-memilih").innerText = voted;
-        document.getElementById("admin-belum-memilih").innerText =
-          total - voted;
+        document.getElementById("admin-belum-memilih").innerText = total - voted;
 
         const allResults = await api.getResults();
         let filteredResults = allResults;
-        if (filterClass !== "ALL")
-          filteredResults = allResults.filter((r) => r.Kelas === filterClass);
+        if (filterClass !== "ALL") filteredResults = allResults.filter((r) => r.Kelas === filterClass);
+        
         renderCharts(filteredResults, voted, total - voted);
-
         renderReportTable(filteredStudents, allResults);
         renderMasterVoterTable(filteredStudents);
         renderAdminCandidates();
@@ -1773,62 +1765,38 @@
         let listToRender = studentsList;
         if (!listToRender) {
           listToRender = appState.students;
-          if (filterClass !== "ALL")
-            listToRender = appState.students.filter(
-              (s) => s.Kelas === filterClass,
-            );
+          if (filterClass !== "ALL") listToRender = appState.students.filter((s) => s.Kelas === filterClass);
         }
 
-        const searchVal = document.getElementById("adminSearchReport")
-          ? document.getElementById("adminSearchReport").value.toLowerCase()
-          : "";
-        const filtered = listToRender.filter(
-          (s) =>
-            s["Nama siswa"].toLowerCase().includes(searchVal) ||
-            s.Token.toLowerCase().includes(searchVal),
-        );
-
+        const searchVal = document.getElementById("adminSearchReport") ? document.getElementById("adminSearchReport").value.toLowerCase() : "";
+        const filtered = listToRender.filter((s) => String(s["Nama siswa"]).toLowerCase().includes(searchVal) || String(s.Token).toLowerCase().includes(searchVal));
         const tbody = document.getElementById("report-voters-tbody");
         tbody.innerHTML = "";
 
-        if (filtered.length === 0)
-          return (tbody.innerHTML =
-            '<tr><td colspan="6" class="p-8 text-center text-slate-500 font-medium">Tidak ada data pemilih.</td></tr>');
+        if (filtered.length === 0) return (tbody.innerHTML = '<tr><td colspan="6" class="p-8 text-center text-slate-500 font-medium">Tidak ada data pemilih.</td></tr>');
 
         filtered.forEach((s, index) => {
-          const isVoted =
-            s.Status === true || s.Status === "True" || s.Status === "TRUE";
-          let statusBadge =
-            '<span class="bg-slate-50 text-slate-400 px-3 py-1.5 rounded-[0.75rem] text-[10px] font-bold uppercase border border-slate-200"><i class="fas fa-times mr-1"></i>Belum</span>';
-          let pilihanHtml =
-            '<span class="text-slate-400 italic text-xs">Belum menggunakan hak suara</span>';
+          const isVoted = s.Status === true || s.Status === "True" || s.Status === "TRUE";
+          let statusBadge = '<span class="bg-slate-50 text-slate-400 px-3 py-1.5 rounded-[0.75rem] text-[10px] font-bold uppercase border border-slate-200"><i class="fas fa-times mr-1"></i>Belum</span>';
+          let pilihanHtml = '<span class="text-slate-400 italic text-xs">Belum menggunakan hak suara</span>';
 
           if (isVoted) {
-            statusBadge =
-              '<span class="bg-emerald-50 text-emerald-600 px-3 py-1.5 rounded-[0.75rem] text-[10px] font-bold uppercase border border-emerald-100"><i class="fas fa-check mr-1"></i>Sudah</span>';
-            const voteData = (results || mockHasil).find(
-              (r) => r["Nama Pemilih"] === s["Nama siswa"],
-            );
+            statusBadge = '<span class="bg-emerald-50 text-emerald-600 px-3 py-1.5 rounded-[0.75rem] text-[10px] font-bold uppercase border border-emerald-100"><i class="fas fa-check mr-1"></i>Sudah</span>';
+            const voteData = (results || mockHasil).find((r) => r["Nama Pemilih"] === s["Nama siswa"]);
+            
             if (voteData) {
               if (appState.isReportUnlocked) {
-                const candidate = appState.candidates.find(
-                  (c) => c.No === voteData["Pilihan (No Paslon)"],
-                );
+                const candidate = appState.candidates.find((c) => c.No === voteData["Pilihan (No Paslon)"]);
                 if (candidate) {
-                  pilihanHtml = `<div class="flex items-center gap-3">
-                            <div class="w-6 h-6 rounded-full bg-indigo-50 text-indigo-600 border border-indigo-100 flex items-center justify-center text-[10px] font-black">${candidate.No}</div>
-                            <div><p class="font-bold text-slate-800 text-xs">${candidate["Nama Ketua"]}</p></div>
-                        </div>`;
+                  pilihanHtml = `<div class="flex items-center gap-3"><div class="w-6 h-6 rounded-full bg-indigo-50 text-indigo-600 border border-indigo-100 flex items-center justify-center text-[10px] font-black">${candidate.No}</div><div><p class="font-bold text-slate-800 text-xs">${candidate["Nama Ketua"]}</p></div></div>`;
                 } else {
                   pilihanHtml = `<span class="font-bold text-slate-700">Paslon #${voteData["Pilihan (No Paslon)"]}</span>`;
                 }
               } else {
-                pilihanHtml =
-                  '<span class="bg-slate-100 text-slate-500 px-3 py-1.5 rounded-[0.5rem] text-[10px] font-bold border border-slate-200"><i class="fas fa-lock mr-1"></i> Terenkripsi</span>';
+                pilihanHtml = '<span class="bg-slate-100 text-slate-500 px-3 py-1.5 rounded-[0.5rem] text-[10px] font-bold border border-slate-200"><i class="fas fa-lock mr-1"></i> Terenkripsi</span>';
               }
             } else {
-              pilihanHtml =
-                '<span class="text-slate-500 italic text-xs">Data Terenkripsi</span>';
+              pilihanHtml = '<span class="text-slate-500 italic text-xs">Data Terenkripsi</span>';
             }
           }
 
@@ -1840,8 +1808,7 @@
                 <td class="p-4 md:p-5"><span class="bg-slate-50 text-slate-600 font-mono text-[11px] px-2.5 py-1.5 rounded-[0.5rem] border border-slate-200 tracking-wider font-bold">${s.Token}</span></td>
                 <td class="p-4 md:p-5 text-center">${statusBadge}</td>
                 <td class="p-4 md:p-5 border-l border-slate-100 bg-indigo-50/10">${pilihanHtml}</td>
-            </tr>
-        `;
+            </tr>`;
         });
       }
 
@@ -1851,8 +1818,7 @@
           const voteCounts = {};
           appState.candidates.forEach((c) => (voteCounts[c.No] = 0));
           results.forEach((r) => {
-            if (voteCounts[r["Pilihan (No Paslon)"]] !== undefined)
-              voteCounts[r["Pilihan (No Paslon)"]]++;
+            if (voteCounts[r["Pilihan (No Paslon)"]] !== undefined) voteCounts[r["Pilihan (No Paslon)"]]++;
           });
 
           const labelsBar = appState.candidates.map((c) => `Paslon ${c.No}`);
@@ -1863,30 +1829,9 @@
             type: "bar",
             data: {
               labels: labelsBar,
-              datasets: [
-                {
-                  label: "Suara",
-                  data: dataBar,
-                  backgroundColor: ["#0f172a", "#334155", "#475569"],
-                  borderRadius: 12,
-                  barPercentage: 0.5,
-                  borderSkipped: false,
-                },
-              ],
+              datasets: [{ label: "Suara", data: dataBar, backgroundColor: ["#0f172a", "#334155", "#475569"], borderRadius: 12, barPercentage: 0.5 }],
             },
-            options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              plugins: { legend: { display: false } },
-              scales: {
-                y: {
-                  beginAtZero: true,
-                  ticks: { stepSize: 1, precision: 0 },
-                  grid: { borderDash: [4, 4], color: "#f1f5f9" },
-                },
-                x: { grid: { display: false } },
-              },
-            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } }, x: { grid: { display: false } } } },
           });
         }
 
@@ -1895,32 +1840,8 @@
           if (turnoutChartInstance) turnoutChartInstance.destroy();
           turnoutChartInstance = new Chart(ctxDoughnut, {
             type: "doughnut",
-            data: {
-              labels: ["Sudah Memilih", "Belum Memilih"],
-              datasets: [
-                {
-                  data: [votedCount, unvotedCount],
-                  backgroundColor: ["#10b981", "#f43f5e"],
-                  borderWidth: 0,
-                  hoverOffset: 4,
-                },
-              ],
-            },
-            options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              cutout: "75%",
-              plugins: {
-                legend: {
-                  position: "bottom",
-                  labels: {
-                    boxWidth: 12,
-                    usePointStyle: true,
-                    font: { family: "Inter", size: 11 },
-                  },
-                },
-              },
-            },
+            data: { labels: ["Sudah Memilih", "Belum Memilih"], datasets: [{ data: [votedCount, unvotedCount], backgroundColor: ["#10b981", "#f43f5e"], borderWidth: 0, hoverOffset: 4 }] },
+            options: { responsive: true, maintainAspectRatio: false, cutout: "75%", plugins: { legend: { position: "bottom", labels: { boxWidth: 12, usePointStyle: true, font: { family: "Inter", size: 11 } } } } },
           });
         }
       }
@@ -1930,45 +1851,26 @@
         let listToRender = studentsList;
         if (!listToRender) {
           listToRender = appState.students;
-          if (filterClass !== "ALL")
-            listToRender = appState.students.filter(
-              (s) => s.Kelas === filterClass,
-            );
+          if (filterClass !== "ALL") listToRender = appState.students.filter((s) => s.Kelas === filterClass);
         }
 
-        const searchVal = document.getElementById("adminSearchMasterVoter")
-          ? document
-              .getElementById("adminSearchMasterVoter")
-              .value.toLowerCase()
-          : "";
-        const filtered = listToRender.filter(
-          (s) =>
-            s["Nama siswa"].toLowerCase().includes(searchVal) ||
-            s.Token.toLowerCase().includes(searchVal),
-        );
-
+        const searchVal = document.getElementById("adminSearchMasterVoter") ? document.getElementById("adminSearchMasterVoter").value.toLowerCase() : "";
+        const filtered = listToRender.filter((s) => String(s["Nama siswa"]).toLowerCase().includes(searchVal) || String(s.Token).toLowerCase().includes(searchVal));
         const tbody = document.getElementById("master-voters-tbody");
         tbody.innerHTML = "";
 
-        if (filtered.length === 0)
-          return (tbody.innerHTML =
-            '<tr><td colspan="4" class="p-8 text-center text-slate-500 font-medium">Data kosong.</td></tr>');
+        if (filtered.length === 0) return (tbody.innerHTML = '<tr><td colspan="4" class="p-8 text-center text-slate-500 font-medium">Data kosong.</td></tr>');
 
         filtered.forEach((s) => {
-          const isVoted =
-            s.Status === true || s.Status === "True" || s.Status === "TRUE";
-          const statusBadge = isVoted
-            ? '<span class="text-emerald-500 font-bold text-xs"><i class="fas fa-check-circle mr-1"></i>Sudah</span>'
-            : '<span class="text-slate-400 font-bold text-xs"><i class="fas fa-clock mr-1"></i>Belum</span>';
-
+          const isVoted = s.Status === true || s.Status === "True" || s.Status === "TRUE";
+          const statusBadge = isVoted ? '<span class="text-emerald-500 font-bold text-xs"><i class="fas fa-check-circle mr-1"></i>Sudah</span>' : '<span class="text-slate-400 font-bold text-xs"><i class="fas fa-clock mr-1"></i>Belum</span>';
           tbody.innerHTML += `
             <tr class="hover:bg-slate-50/50 transition border-b border-slate-100">
                 <td class="p-4 font-bold text-slate-800">${s["Nama siswa"]}</td>
                 <td class="p-4 text-slate-500 font-medium text-xs">${s.Kelas}</td>
                 <td class="p-4"><span class="text-slate-600 font-mono text-xs font-bold tracking-widest">${s.Token}</span></td>
                 <td class="p-4 text-center">${statusBadge}</td>
-            </tr>
-        `;
+            </tr>`;
         });
       }
 
@@ -1976,7 +1878,6 @@
         document.getElementById("unlock-form").reset();
         document.getElementById("unlock-modal").classList.remove("hidden");
       }
-
       function closeUnlockModal() {
         document.getElementById("unlock-modal").classList.add("hidden");
       }
@@ -1984,23 +1885,19 @@
       document.getElementById("unlock-form").addEventListener("submit", (e) => {
         e.preventDefault();
         const pin = document.getElementById("unlockPin").value;
-        if (pin === "101189") {
+        if (pin === "1234") {
           appState.isReportUnlocked = true;
           closeUnlockModal();
           document.getElementById("btn-unlock-report").classList.add("hidden");
           showToast("Akses Laporan Terbuka", "success");
           updateAdminDashboardData();
-        } else {
-          showToast("PIN Akses Salah!", "error");
-        }
+        } else showToast("PIN Akses Salah!", "error");
       });
 
       function renderAdminCandidates() {
         const tbody = document.getElementById("master-candidates-tbody");
         tbody.innerHTML = "";
-        if (appState.candidates.length === 0)
-          return (tbody.innerHTML =
-            '<tr><td colspan="4" class="p-8 text-center text-slate-500 font-medium">Belum ada Kandidat.</td></tr>');
+        if (appState.candidates.length === 0) return (tbody.innerHTML = '<tr><td colspan="4" class="p-8 text-center text-slate-500 font-medium">Belum ada Kandidat.</td></tr>');
 
         appState.candidates.forEach((c) => {
           tbody.innerHTML += `
@@ -2010,7 +1907,9 @@
                     <p class="font-black text-slate-800 text-sm tracking-tight">${c["Nama Ketua"]}</p>
                     <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">& ${c["Nama Wakil"]}</p>
                 </td>
-                <td class="p-4"><img src="${c["Foto URL"]}" onclick="openImageModal('${c["Foto URL"]}')" class="h-12 w-12 object-cover rounded-[0.75rem] shadow-sm border border-slate-200 cursor-pointer hover:opacity-80 transition hover:ring-2 hover:ring-[#0f172a] hover:ring-offset-1" title="Lihat Poster" onerror="this.src='https://placehold.co/400'"></td>
+                <td class="p-4">
+                    <button onclick="openImageModal('${c["Foto URL"]}', '${c["Poster URL"]}')" class="text-indigo-600 hover:text-indigo-800 bg-indigo-50 px-3 py-1.5 rounded-[0.5rem] transition border border-indigo-100 text-xs font-bold"><i class="fas fa-image mr-1"></i> Preview</button>
+                </td>
                 <td class="p-4 text-center space-x-2">
                     <button onclick="prepareEditCandidate(${c.No})" class="text-indigo-500 hover:text-indigo-700 bg-indigo-50 w-8 h-8 rounded-[0.5rem] transition border border-indigo-100" title="Edit Data"><i class="fas fa-edit text-xs"></i></button>
                     <button onclick="confirmDeleteCandidate(${c.No})" class="text-red-500 hover:text-red-700 bg-red-50 w-8 h-8 rounded-[0.5rem] transition border border-red-100" title="Hapus Data"><i class="fas fa-trash-alt text-xs"></i></button>
@@ -2024,8 +1923,8 @@
         document.getElementById("candidate-form").reset();
         document.getElementById("editCandidateNo").value = "";
         document.getElementById("edit-photo-preview").classList.add("hidden");
-        document.getElementById("candidate-modal-title").innerHTML =
-          '<i class="fas fa-plus-circle mr-2 text-[#0f172a]"></i>Tambah Paslon';
+        document.getElementById("edit-poster-preview").classList.add("hidden");
+        document.getElementById("candidate-modal-title").innerHTML = '<i class="fas fa-plus-circle mr-2 text-[#0f172a]"></i>Tambah Paslon';
         document.getElementById("candidate-modal").classList.remove("hidden");
       }
 
@@ -2033,14 +1932,38 @@
         document.getElementById("candidate-modal").classList.add("hidden");
       }
 
-      function openImageModal(src) {
-        document.getElementById("image-modal-src").src = src;
+      // === LOGIKA UNTUK MENAMPILKAN MODAL 2 GAMBAR BERDAMPINGAN ===
+      function openImageModal(fotoSrc, posterSrc) {
+        document.getElementById("image-modal-foto-src").src = formatImageUrl(fotoSrc);
+        
+        // Memastikan poster hanya dirender jika urlnya valid, jika tidak tampilkan placeholder
+        document.getElementById("image-modal-poster-src").src = 
+          (posterSrc && posterSrc.length > 10 && posterSrc !== "undefined") 
+            ? formatImageUrl(posterSrc) 
+            : "https://placehold.co/400x500/334155/ffffff?text=Belum+Ada+Poster";
+            
         document.getElementById("image-modal").classList.remove("hidden");
       }
 
       function closeImageModal() {
         document.getElementById("image-modal").classList.add("hidden");
-        document.getElementById("image-modal-src").src = "";
+        document.getElementById("image-modal-foto-src").src = "";
+        document.getElementById("image-modal-poster-src").src = "";
+      }
+
+      // === FUNGSI UNTUK ZOOM FOTO ===
+      function openZoomModal(src) {
+        if (src && !src.includes('placehold.co')) {
+          document.getElementById('zoom-modal-img').src = src;
+          document.getElementById('zoom-modal').classList.remove('hidden');
+        } else {
+          showToast("Gambar tidak tersedia untuk diperbesar", "info");
+        }
+      }
+
+      function closeZoomModal() {
+        document.getElementById('zoom-modal').classList.add('hidden');
+        document.getElementById('zoom-modal-img').src = '';
       }
 
       function prepareEditCandidate(no) {
@@ -2050,23 +1973,28 @@
         document.getElementById("editCandidateNo").value = c.No;
         document.getElementById("namaKetua").value = c["Nama Ketua"];
         document.getElementById("namaWakil").value = c["Nama Wakil"];
-        document.getElementById("visiPaslon").value = c.Visi;
-        document.getElementById("misiPaslon").value = c.Misi.replace(
-          /<br>/g,
-          "\n",
-        );
+        document.getElementById("visiPaslon").value = (c.Visi || "").toString();
+        document.getElementById("misiPaslon").value = (c.Misi || "").toString().replace(/<br>/g, "\n");
 
-        const previewContainer = document.getElementById("edit-photo-preview");
-        const previewImg = document.getElementById("preview-img");
+        const previewContainerFoto = document.getElementById("edit-photo-preview");
+        const previewImgFoto = document.getElementById("preview-img");
         if (c["Foto URL"] && c["Foto URL"].length > 10) {
-          previewImg.src = c["Foto URL"];
-          previewContainer.classList.remove("hidden");
+          previewImgFoto.src = formatImageUrl(c["Foto URL"]);
+          previewContainerFoto.classList.remove("hidden");
         } else {
-          previewContainer.classList.add("hidden");
+          previewContainerFoto.classList.add("hidden");
+        }
+        
+        const previewContainerPoster = document.getElementById("edit-poster-preview");
+        const previewImgPoster = document.getElementById("preview-poster-img");
+        if (c["Poster URL"] && c["Poster URL"].length > 10) {
+          previewImgPoster.src = formatImageUrl(c["Poster URL"]);
+          previewContainerPoster.classList.remove("hidden");
+        } else {
+          previewContainerPoster.classList.add("hidden");
         }
 
-        document.getElementById("candidate-modal-title").innerHTML =
-          '<i class="fas fa-edit mr-2 text-[#0f172a]"></i>Edit Paslon #' + c.No;
+        document.getElementById("candidate-modal-title").innerHTML = '<i class="fas fa-edit mr-2 text-[#0f172a]"></i>Edit Paslon #' + c.No;
         document.getElementById("candidate-modal").classList.remove("hidden");
       }
 
@@ -2095,71 +2023,81 @@
         );
       }
 
-      document
-        .getElementById("candidate-form")
-        .addEventListener("submit", async (e) => {
-          e.preventDefault();
-          const btn = document.getElementById("btn-save-candidate");
-          const isEdit = document.getElementById("editCandidateNo").value;
+      document.getElementById("candidate-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById("btn-save-candidate");
+        const isEdit = document.getElementById("editCandidateNo").value;
 
-          btn.innerHTML =
-            '<i class="fas fa-spinner fa-spin mr-2"></i>Menyimpan...';
-          btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Menyimpan...';
+        btn.disabled = true;
 
-          const file = document.getElementById("fotoPaslon").files[0];
-          let base64 = "";
-          let fileName = "";
-          if (file) {
-            fileName = file.name;
-            base64 = await new Promise((r) => {
-              const reader = new FileReader();
-              reader.onload = () => r(reader.result);
-              reader.readAsDataURL(file);
-            });
+        // Proses Foto
+        const fileFoto = document.getElementById("fotoPaslon").files[0];
+        let fotoBase64 = "";
+        let fotoFileName = "";
+        if (fileFoto) {
+          fotoFileName = fileFoto.name;
+          fotoBase64 = await new Promise((r) => {
+            const reader = new FileReader();
+            reader.onload = () => r(reader.result);
+            reader.readAsDataURL(fileFoto);
+          });
+        }
+        
+        // Proses Poster
+        const filePoster = document.getElementById("posterPaslon").files[0];
+        let posterBase64 = "";
+        let posterFileName = "";
+        if (filePoster) {
+          posterFileName = filePoster.name;
+          posterBase64 = await new Promise((r) => {
+            const reader = new FileReader();
+            reader.onload = () => r(reader.result);
+            reader.readAsDataURL(filePoster);
+          });
+        }
+
+        const data = {
+          ketua: document.getElementById("namaKetua").value,
+          wakil: document.getElementById("namaWakil").value,
+          visi: document.getElementById("visiPaslon").value,
+          misi: document.getElementById("misiPaslon").value,
+          fotoBase64: fotoBase64,
+          fotoFileName: fotoFileName,
+          posterBase64: posterBase64,
+          posterFileName: posterFileName,
+        };
+        if (isEdit) data.no = isEdit;
+
+        try {
+          if (isEdit) {
+            await api.updateCandidate(data);
+            showToast("Kandidat diperbarui!", "success");
+          } else {
+            await api.addCandidate(data);
+            showToast("Kandidat ditambahkan!", "success");
           }
 
-          const data = {
-            ketua: document.getElementById("namaKetua").value,
-            wakil: document.getElementById("namaWakil").value,
-            visi: document.getElementById("visiPaslon").value,
-            misi: document.getElementById("misiPaslon").value,
-            fotoBase64: base64,
-            fileName: fileName,
-          };
-          if (isEdit) data.no = isEdit;
+          closeCandidateModal();
+          switchView("view-loading");
+          const newData = await api.getInitialData();
+          appState.candidates = newData.candidates;
+          updateAdminDashboardData();
+          switchView("view-admin-dashboard");
+        } catch (err) {
+          showToast("Gagal menyimpan data.", "error");
+        }
 
-          try {
-            if (isEdit) {
-              await api.updateCandidate(data);
-              showToast("Kandidat diperbarui!", "success");
-            } else {
-              await api.addCandidate(data);
-              showToast("Kandidat ditambahkan!", "success");
-            }
-
-            closeCandidateModal();
-            switchView("view-loading");
-            const newData = await api.getInitialData();
-            appState.candidates = newData.candidates;
-            updateAdminDashboardData();
-            switchView("view-admin-dashboard");
-          } catch (err) {
-            showToast("Gagal menyimpan data.", "error");
-          }
-
-          btn.innerHTML = "Simpan Data Paslon";
-          btn.disabled = false;
-        });
+        btn.innerHTML = "Simpan Data Paslon";
+        btn.disabled = false;
+      });
 
       window.onload = async () => {
         try {
           const data = await api.getInitialData();
-          appState.students = data.students;
-          appState.candidates = data.candidates;
-          setupAutocomplete(
-            document.getElementById("searchTokenNama"),
-            appState.students,
-          );
+          appState.students = data.students || [];
+          appState.candidates = data.candidates || [];
+          setupAutocomplete(document.getElementById("searchTokenNama"), appState.students);
           renderCandidates();
 
           const savedUser = sessionStorage.getItem("currentUser");
@@ -2170,16 +2108,20 @@
             initAdminDashboard();
           } else if (savedUser) {
             appState.currentUser = JSON.parse(savedUser);
-            document.getElementById("welcome-name").innerText =
-              appState.currentUser.nama.split(" ")[0];
+            document.getElementById("welcome-name").innerText = appState.currentUser.nama.split(" ")[0];
             switchView("view-voting");
           } else {
             switchView("view-login");
           }
         } catch (e) {
-          showToast("Gagal memuat data sistem.", "error");
-          document.getElementById("loading-text").innerText =
-            "Sistem Gagal Dimuat.";
+          console.error(e);
+          // Modifikasi error handling agar user mengerti penyebab loading macet
+          document.getElementById("loading-spinner").style.display = "none";
+          document.getElementById("loading-text").innerHTML = `
+            <span class="text-red-500 font-black text-xl"><i class="fas fa-exclamation-triangle"></i> Gagal Terhubung!</span><br>
+            <span class="text-slate-500 font-medium mt-3 block">Periksa koneksi internet Anda atau pastikan URL Google Apps Script sudah di-deploy dengan akses <b>"Semua Orang (Anyone)"</b>.</span>
+          `;
+          document.getElementById("loading-error-action").classList.remove("hidden");
         }
       };
     </script>
