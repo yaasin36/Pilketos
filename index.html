@@ -1,3 +1,4 @@
+<!-- STREAMING_CHUNK:HTML Setup and Headers... -->
 <!doctype html>
 <html lang="id">
   <head>
@@ -20,6 +21,7 @@
     />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+    <!-- STREAMING_CHUNK:Styling layout and animations... -->
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -87,6 +89,15 @@
           transform: scale(1);
         }
       }
+      
+      @keyframes sahPop {
+        0% { transform: scale(0.5); opacity: 0; }
+        70% { transform: scale(1.2); opacity: 1; }
+        100% { transform: scale(1); opacity: 1; }
+      }
+      .animate-sah {
+        animation: sahPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      }
 
       ::-webkit-scrollbar {
         width: 6px;
@@ -114,6 +125,7 @@
   <body
     class="min-h-screen text-slate-800 antialiased flex flex-col bg-gradient-to-br from-[#eef2fb] via-[#f4f7fe] to-[#e6ecf8] selection:bg-[#0f172a] selection:text-white"
   >
+    <!-- STREAMING_CHUNK:Loading Screen... -->
     <div
       id="view-loading"
       class="view-section fixed inset-0 bg-[#0f172a]/40 backdrop-blur-md flex items-center justify-center z-[90]"
@@ -139,6 +151,7 @@
       </div>
     </div>
 
+    <!-- STREAMING_CHUNK:Login Area... -->
     <div
       id="view-login"
       class="view-section hidden flex-grow flex items-center justify-center p-4 md:p-10 relative min-h-screen w-full overflow-hidden"
@@ -314,11 +327,12 @@
       <!-- Footer Copyright Login -->
       <div class="absolute bottom-4 md:bottom-6 left-0 w-full text-center z-10 pointer-events-none">
         <p class="text-[11px] text-slate-400 font-medium tracking-wide">
-          Hak Cipta &copy; 2026 Komisi Pemilihan Umum Republik Indonesia
+          Hak Cipta &copy; 2026 Yash Media
         </p>
       </div>
     </div>
 
+    <!-- STREAMING_CHUNK:Voting Area... -->
     <div id="view-voting" class="view-section hidden min-h-screen p-4 md:p-8">
       <div class="max-w-6xl mx-auto">
         <div
@@ -358,7 +372,7 @@
         <!-- Footer Copyright Voting -->
         <div class="mt-12 text-center pb-4">
           <p class="text-[11px] text-slate-400 font-medium tracking-wide">
-            Hak Cipta &copy; 2026 Komisi Pemilihan Umum Republik Indonesia
+            Hak Cipta &copy; 2026 Yash Media
           </p>
         </div>
       </div>
@@ -391,6 +405,7 @@
       </div>
     </div>
 
+    <!-- STREAMING_CHUNK:Search Token Modal... -->
     <div
       id="token-search-modal"
       class="fixed inset-0 bg-[#0f172a]/40 backdrop-blur-md flex items-center justify-center z-[85] hidden p-4"
@@ -416,7 +431,7 @@
             Cari Token
           </h3>
           <p class="text-slate-500 text-xs mt-2 leading-relaxed font-medium">
-            Ketik nama lengkap siswa yang terdaftar.
+            Ketik nama lengkap Anda yang terdaftar.
           </p>
         </div>
 
@@ -456,10 +471,17 @@
               class="text-3xl font-mono font-black text-[#0f172a] tracking-[0.2em]"
             ></span>
           </div>
+          <button
+            onclick="useToken()"
+            class="w-full bg-[#0f172a] text-white font-bold py-4 rounded-[1rem] shadow-[0_8px_20px_-6px_rgba(15,23,42,0.4)] hover:bg-[#1e293b] transition-all active:scale-[0.98] flex items-center justify-center gap-2"
+          >
+            <i class="fas fa-check-circle"></i> Gunakan Token Ini
+          </button>
         </div>
       </div>
     </div>
 
+    <!-- STREAMING_CHUNK:Confirmation Modal... -->
     <div
       id="confirm-modal"
       class="fixed inset-0 bg-[#0f172a]/40 backdrop-blur-md flex items-center justify-center z-[100] hidden p-4"
@@ -505,6 +527,7 @@
       </div>
     </div>
 
+    <!-- MODAL 2 GAMBAR BERDAMPINGAN (FOTO PASLON & POSTER KAMPANYE) -->
     <div
       id="image-modal"
       class="fixed inset-0 bg-[#0f172a]/95 backdrop-blur-md flex items-center justify-center z-[120] hidden p-4"
@@ -591,6 +614,7 @@
       />
     </div>
 
+    <!-- STREAMING_CHUNK:Admin Login Area... -->
     <div
       id="view-admin-login"
       class="view-section hidden flex items-center justify-center min-h-screen p-4 relative overflow-hidden"
@@ -676,12 +700,13 @@
 
         <div class="mt-8 text-center border-t border-slate-100 pt-6">
           <p class="text-[10px] text-slate-400 font-medium tracking-wide">
-            Hak Cipta &copy; 2026 Komisi Pemilihan Umum Republik Indonesia
+            Hak Cipta &copy; 2026 Yash Media
           </p>
         </div>
       </div>
     </div>
 
+    <!-- STREAMING_CHUNK:Admin Dashboard Layout... -->
     <div
       id="view-admin-dashboard"
       class="view-section hidden h-screen w-full flex bg-[#eef2fb]"
@@ -806,9 +831,13 @@
         </div>
 
         <div class="flex-1 overflow-y-auto p-4 md:p-8 relative">
+          <!-- STREAMING_CHUNK:Tab Dashboard Admin... -->
           <div id="tab-dashboard" class="admin-tab-content fade-in">
             
             <div class="flex justify-end gap-3 mb-6">
+              <button onclick="openPlenoMode()" class="bg-[#0f172a] hover:bg-[#1e293b] text-white px-4 py-2.5 rounded-[1rem] text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 shadow-[0_4px_15px_-3px_rgba(15,23,42,0.4)] active:scale-95">
+                <i class="fas fa-bullhorn"></i> Sidang Pleno
+              </button>
               <button onclick="forceRefreshAdminData()" id="btn-refresh-data" class="bg-white hover:bg-indigo-50 text-slate-600 hover:text-indigo-600 px-4 py-2.5 rounded-[1rem] text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 border border-slate-200 shadow-sm">
                 <i class="fas fa-sync-alt"></i> Refresh Data
               </button>
@@ -925,6 +954,7 @@
             </div>
           </div>
 
+          <!-- STREAMING_CHUNK:Tab Laporan & Master Data Admin... -->
           <div id="tab-voters" class="admin-tab-content hidden fade-in">
             <div
               class="bg-white rounded-[2.5rem] shadow-sm border border-slate-100 p-6 md:p-8 flex flex-col h-[calc(100vh-180px)]"
@@ -1114,6 +1144,7 @@
       </main>
     </div>
 
+    <!-- STREAMING_CHUNK:Additional Admin Modals... -->
     <div
       id="unlock-modal"
       class="fixed inset-0 bg-[#0f172a]/40 backdrop-blur-md flex items-center justify-center z-[80] hidden p-4"
@@ -1171,7 +1202,6 @@
       </div>
     </div>
 
-    <!-- MODAL TAMBAH/EDIT PASLON DENGAN TOMBOL HAPUS PREVIEW -->
     <div
       id="candidate-modal"
       class="fixed inset-0 bg-[#0f172a]/40 backdrop-blur-md flex items-center justify-center z-[85] hidden p-4"
@@ -1253,7 +1283,6 @@
           </div>
           
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <!-- Upload Foto Container -->
             <div>
               <label
                 class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2"
@@ -1263,7 +1292,6 @@
                 id="edit-photo-preview"
                 class="hidden relative mb-3 p-3 bg-slate-50 rounded-[1rem] border border-slate-200 text-center"
               >
-                <!-- Tombol Hapus Preview Foto -->
                 <button type="button" onclick="removePhotoPreview()" class="absolute top-2 right-2 bg-red-100 hover:bg-red-500 text-red-600 hover:text-white px-2 py-1 rounded-lg flex items-center justify-center transition z-10 shadow-sm text-[10px] font-bold gap-1" title="Hapus Foto">
                   <i class="fas fa-trash-alt"></i> Hapus
                 </button>
@@ -1283,7 +1311,6 @@
               />
             </div>
             
-            <!-- Upload Poster Container -->
             <div>
               <label
                 class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2"
@@ -1293,7 +1320,6 @@
                 id="edit-poster-preview"
                 class="hidden relative mb-3 p-3 bg-slate-50 rounded-[1rem] border border-slate-200 text-center"
               >
-                <!-- Tombol Hapus Preview Poster -->
                 <button type="button" onclick="removePosterPreview()" class="absolute top-2 right-2 bg-red-100 hover:bg-red-500 text-red-600 hover:text-white px-2 py-1 rounded-lg flex items-center justify-center transition z-10 shadow-sm text-[10px] font-bold gap-1" title="Hapus Poster">
                   <i class="fas fa-trash-alt"></i> Hapus
                 </button>
@@ -1327,6 +1353,45 @@
       </div>
     </div>
 
+    <!-- STREAMING_CHUNK:Pleno Mode UI (New Feature)... -->
+    <div id="pleno-modal" class="fixed inset-0 bg-[#0f172a] z-[150] hidden flex flex-col p-4 md:p-8 overflow-hidden backdrop-blur-3xl">
+        <button onclick="closePlenoMode()" class="absolute top-6 right-6 md:top-10 md:right-10 text-slate-400 hover:text-white bg-white/10 hover:bg-white/20 w-12 h-12 rounded-full flex items-center justify-center transition z-50 text-xl shadow-lg border border-white/10"><i class="fas fa-times"></i></button>
+        
+        <div class="text-center mb-6 md:mb-8 mt-2 md:mt-4 fade-in relative z-10">
+            <h2 class="text-3xl md:text-4xl font-black text-white tracking-widest uppercase drop-shadow-lg">Sidang Pleno</h2>
+            <p class="text-slate-400 font-bold mt-2 tracking-widest uppercase text-xs md:text-sm">Penghitungan Suara <span id="pleno-filter-info"></span></p>
+        </div>
+
+        <div class="flex-grow flex flex-col lg:flex-row relative z-10 w-full max-w-7xl mx-auto gap-8 overflow-hidden h-full pb-4">
+            
+            <!-- PANEL KIRI: SCOREBOARD (Daftar Paslon) -->
+            <div class="w-full lg:w-1/3 flex flex-col bg-white/5 backdrop-blur-xl rounded-[2rem] border border-white/10 p-6 overflow-hidden flex-shrink-0">
+                <h3 class="text-indigo-400 font-black text-sm uppercase tracking-widest mb-6 pb-4 border-b border-white/10 flex justify-between items-center">
+                    <span>Rekap Suara</span>
+                    <span id="pleno-progress" class="bg-indigo-500/20 text-indigo-200 px-3 py-1 rounded-full text-[10px]">0/0 Suara</span>
+                </h3>
+                <div class="flex-grow overflow-y-auto pr-2 space-y-4 no-scrollbar" id="pleno-scoreboard">
+                    <!-- Papan skor akan disuntik dari JavaScript -->
+                </div>
+            </div>
+
+            <!-- PANEL KANAN: KARTU SURAT SUARA UTAMA -->
+            <div class="w-full lg:w-2/3 flex flex-col items-center justify-center overflow-y-auto no-scrollbar">
+                <!-- Box Surat Suara -->
+                <div id="pleno-card" class="bg-white w-full max-w-lg mx-auto rounded-[2.5rem] p-8 md:p-12 text-center shadow-2xl relative transition-all duration-300 transform">
+                    <div id="pleno-card-content">
+                        <!-- Konten ini akan disuntik dari JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Ornamen Latar Belakang -->
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-indigo-500/10 rounded-full blur-[100px] -z-0 pointer-events-none"></div>
+    </div>
+
+    <!-- STREAMING_CHUNK:JavaScript Logic... -->
     <script>
       // ==========================================
       // KONFIGURASI API (UNTUK GITHUB PAGES)
@@ -1344,7 +1409,6 @@
         return url; 
       }
 
-      // FUNGSI HAPUS PREVIEW DARI UI
       function removePhotoPreview() {
         document.getElementById('fotoPaslon').value = "";
         document.getElementById('preview-img').src = "";
@@ -1359,7 +1423,6 @@
         document.getElementById('posterPaslon').dataset.removed = "true";
       }
 
-      // FITUR REAL-TIME PREVIEW SAAT GAMBAR DIPILIH
       document.getElementById('fotoPaslon').addEventListener('change', function() {
         const file = this.files[0];
         if (file) {
@@ -1378,12 +1441,9 @@
         }
       });
 
-      // Data Dummy (Mock)
       let mockStudents = [
         { id: 1, "Nama siswa": "Ahmad Budi Santoso", "Nama Panggilan": "Budi", Kelas: "X-A", Token: "12345", Status: false },
         { id: 2, "Nama siswa": "Siti Aisyah Putri", "Nama Panggilan": "Siti", Kelas: "X-B", Token: "54321", Status: true },
-        { id: 3, "Nama siswa": "Andi Wijaya Kusuma", "Nama Panggilan": "Andi", Kelas: "XI-A", Token: "67890", Status: false },
-        { id: 4, "Nama siswa": "Muhammad Rizky", "Nama Panggilan": "Rizky", Kelas: "XII-IPA", Token: "11111", Status: true },
       ];
       let mockHasil = [{ id: 1, "Nama Pemilih": "Siti Aisyah Putri", Kelas: "X-B", "Pilihan (No Paslon)": 1 }];
       let mockCandidates = [
@@ -1392,19 +1452,10 @@
           "Nama Ketua": "Dimas Pratama",
           "Nama Wakil": "Putri Ayu",
           Visi: "Mewujudkan OSIS yang aktif.",
-          Misi: "1. Mengadakan pentas seni.\n2. Lomba kebersihan.",
+          Misi: "1. Mengadakan pentas seni.",
           "Foto URL": "https://placehold.co/400x500/0f172a/ffffff?text=Foto+1",
           "Poster URL": "https://placehold.co/400x500/334155/ffffff?text=Poster+1",
-        },
-        {
-          No: 2,
-          "Nama Ketua": "Kevin Sanjaya",
-          "Nama Wakil": "Reza Rahadian",
-          Visi: "Sekolah bersih berprestasi.",
-          Misi: "1. Menggalakkan Jumat Bersih.\n2. Study Club.",
-          "Foto URL": "https://placehold.co/400x500/0f172a/ffffff?text=Foto+2",
-          "Poster URL": "https://placehold.co/400x500/334155/ffffff?text=Poster+2",
-        },
+        }
       ];
 
       const api = {
@@ -1471,6 +1522,7 @@
         candidates: [],
         currentUser: null,
         isReportUnlocked: false,
+        currentResults: [], // MENYIMPAN RAW DATA UNTUK PLENO
         dashboardStats: { total: 0, voted: 0, unvoted: 0, voteCounts: {} }
       };
       
@@ -1670,6 +1722,17 @@
         closeTokenModal();
       }
 
+      function enterFullScreen() {
+        const elem = document.documentElement;
+        if (elem.requestFullscreen) {
+          elem.requestFullscreen().catch((err) => console.warn(err));
+        } else if (elem.webkitRequestFullscreen) { /* Safari */
+          elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { /* IE11 */
+          elem.msRequestFullscreen();
+        }
+      }
+
       function toggleTokenVisibility() {
         const input = document.getElementById("inputToken");
         const icon = document.getElementById("eye-icon-token");
@@ -1684,21 +1747,10 @@
         }
       }
 
-      function enterFullScreen() {
-        const elem = document.documentElement;
-        if (elem.requestFullscreen) {
-          elem.requestFullscreen().catch((err) => console.warn(err));
-        } else if (elem.webkitRequestFullscreen) { /* Safari */
-          elem.webkitRequestFullscreen();
-        } else if (elem.msRequestFullscreen) { /* IE11 */
-          elem.msRequestFullscreen();
-        }
-      }
-
       document.getElementById("login-form").addEventListener("submit", (e) => {
         e.preventDefault();
-        enterFullScreen();
-
+        enterFullScreen(); // Otomatis Full Screen saat masuk bilik
+        
         const token = document.getElementById("inputToken").value.trim();
         if (!token) return showToast("Masukkan Token Anda!", "error");
 
@@ -1723,11 +1775,9 @@
         sessionStorage.removeItem("currentUser");
         document.getElementById("login-form").reset();
         
-        // Tampilkan layar loading sebentar agar transisi natural
         switchView("view-loading");
         document.getElementById("loading-text").innerText = "Menyegarkan Data...";
         
-        // Reload untuk clear semua state
         setTimeout(() => {
           location.reload();
         }, 400);
@@ -1736,11 +1786,9 @@
       function adminLogout() {
         sessionStorage.removeItem("isAdminLoggedIn");
         
-        // Tampilkan layar loading saat admin keluar
         switchView("view-loading");
         document.getElementById("loading-text").innerText = "Keluar Sistem...";
         
-        // Reload untuk clear semua state
         setTimeout(() => {
           location.reload();
         }, 400);
@@ -1803,14 +1851,6 @@
             switchView("view-loading");
             try {
               await api.submitVote(appState.currentUser.token, candidateNo);
-              
-              // Mengubah status token di memori lokal secara otomatis
-              // Agar nama pemilih di form pencarian langsung menjadi abu-abu
-              const student = appState.students.find((s) => String(s.Token) === String(appState.currentUser.token));
-              if (student) {
-                student.Status = true;
-              }
-
               switchView("view-success");
             } catch (e) {
               showToast(e.message, "error");
@@ -1879,6 +1919,9 @@
         const allResults = await api.getResults();
         let filteredResults = allResults;
         if (filterClass !== "ALL") filteredResults = allResults.filter((r) => r.Kelas === filterClass);
+        
+        // Simpan current result mentah (RAW) untuk kebutuhan Pleno Mode
+        appState.currentResults = filteredResults;
         
         const voteCounts = {};
         appState.candidates.forEach((c) => (voteCounts[c.No] = 0));
@@ -2256,6 +2299,274 @@
         btn.disabled = false;
       });
 
+      // STREAMING_CHUNK:Pleno Mode Functions...
+      let plenoState = {
+          results: [],
+          currentIndex: 0,
+          tallies: {},
+          total: 0,
+          hasStarted: false
+      };
+
+      function openPlenoMode() {
+          if (!appState.isReportUnlocked) {
+              showToast("Buka kunci laporan (ikon gembok) terlebih dahulu untuk membaca surat suara!", "error");
+              switchAdminTab('tab-voters');
+              return;
+          }
+          if (appState.currentResults.length === 0) {
+              showToast("Belum ada suara yang masuk untuk dihitung.", "error");
+              return;
+          }
+
+          // Klon data mentah (RAW) agar tidak merusak filter dan Acak Surat Suara agar anonim
+          plenoState.results = [...appState.currentResults]; 
+          plenoState.results.sort(() => Math.random() - 0.5);
+
+          plenoState.currentIndex = 0;
+          plenoState.total = plenoState.results.length;
+          plenoState.hasStarted = false;
+          
+          // Reset papan skor lokal pleno
+          plenoState.tallies = {};
+          appState.candidates.forEach(c => plenoState.tallies[c.No] = 0);
+
+          const filterText = document.getElementById("globalClassFilter").value === "ALL" ? "(Semua Kelas)" : `(Kelas ${document.getElementById("globalClassFilter").value})`;
+          document.getElementById('pleno-filter-info').innerText = filterText;
+
+          renderPlenoScoreboard();
+          resetPlenoCard();
+
+          enterFullScreen();
+          document.getElementById('pleno-modal').classList.remove('hidden');
+      }
+
+      function closePlenoMode() {
+          document.getElementById('pleno-modal').classList.add('hidden');
+      }
+
+      function startPlenoCount() {
+          plenoState.hasStarted = true;
+          resetPlenoCard();
+      }
+
+      function renderPlenoScoreboard() {
+          const container = document.getElementById('pleno-scoreboard');
+          container.innerHTML = '';
+          
+          appState.candidates.forEach(c => {
+              const candidateImage = formatImageUrl(c["Foto URL"]);
+              const wakilHtml = c['Nama Wakil'] ? `<p class="text-indigo-300/80 font-semibold text-[10px] truncate w-full mt-0.5" title="${c['Nama Wakil']}">& ${c['Nama Wakil']}</p>` : '';
+              
+              container.innerHTML += `
+                  <div class="bg-slate-900/60 backdrop-blur-xl rounded-[1.5rem] p-4 border border-white/10 flex items-center gap-4 transition-all hover:bg-slate-800/80 hover:border-white/20" id="pleno-score-paslon-${c.No}">
+                      <div class="w-14 h-14 rounded-full bg-slate-800 border-2 border-slate-600 overflow-hidden flex-shrink-0 shadow-inner">
+                          <img src="${candidateImage}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/100x100/1e293b/ffffff?text=0${c.No}'"/>
+                      </div>
+                      <div class="text-left flex-grow overflow-hidden">
+                          <p class="text-slate-400 text-[9px] font-black uppercase tracking-widest mb-1">Paslon ${c.No}</p>
+                          <p class="text-white font-bold text-sm truncate w-full drop-shadow-md" title="${c['Nama Ketua']}">${c['Nama Ketua']}</p>
+                          ${wakilHtml}
+                      </div>
+                      <div class="bg-gradient-to-br from-indigo-500 to-purple-600 text-white font-black text-2xl w-14 h-14 rounded-[1rem] flex items-center justify-center shadow-[0_0_20px_rgba(99,102,241,0.5)] border border-indigo-400/30 flex-shrink-0">
+                          ${plenoState.tallies[c.No]}
+                      </div>
+                  </div>
+              `;
+          });
+      }
+
+      function resetPlenoCard() {
+          const card = document.getElementById('pleno-card');
+          const content = document.getElementById('pleno-card-content');
+          
+          // Reset highlight scoreboard
+          appState.candidates.forEach(c => {
+              const sbItem = document.getElementById(`pleno-score-paslon-${c.No}`);
+              if(sbItem) {
+                  sbItem.classList.remove('bg-emerald-900/60', 'border-emerald-500/50', 'shadow-[0_0_20px_rgba(16,185,129,0.2)]');
+                  sbItem.classList.add('bg-slate-900/60', 'border-white/10');
+              }
+          });
+
+          // TAMPILAN 1: INFO AWAL (BELUM MULAI)
+          if (!plenoState.hasStarted) {
+              content.innerHTML = `
+                  <div class="relative">
+                      <div class="absolute inset-0 bg-indigo-400/20 blur-2xl rounded-full"></div>
+                      <div class="text-indigo-500 mb-6 relative z-10 drop-shadow-lg"><i class="fas fa-chart-pie text-[70px]"></i></div>
+                  </div>
+                  <h2 class="text-2xl font-black text-slate-800 mb-1 uppercase tracking-widest">Informasi Pemilihan</h2>
+                  <p class="text-slate-500 font-bold text-xs mb-8">Rekapitulasi sebelum penghitungan dimulai.</p>
+                  
+                  <div class="grid grid-cols-2 gap-4 mb-8">
+                      <div class="bg-gradient-to-br from-emerald-50 to-emerald-100/50 rounded-2xl p-5 border border-emerald-200 shadow-inner">
+                          <p class="text-[10px] text-emerald-600 font-black uppercase tracking-widest mb-1">Suara Sah</p>
+                          <h3 class="text-4xl font-black text-emerald-600 drop-shadow-sm">${plenoState.total}</h3>
+                      </div>
+                      <div class="bg-gradient-to-br from-red-50 to-red-100/50 rounded-2xl p-5 border border-red-200 shadow-inner">
+                          <p class="text-[10px] text-red-500 font-black uppercase tracking-widest mb-1">Golput / Belum</p>
+                          <h3 class="text-4xl font-black text-red-500 drop-shadow-sm">${appState.dashboardStats.unvoted}</h3>
+                      </div>
+                  </div>
+
+                  <button onclick="startPlenoCount()" class="w-full bg-gradient-to-r from-[#0f172a] to-[#1e293b] text-white font-black text-lg py-4 rounded-[1.25rem] shadow-[0_10px_25px_-5px_rgba(15,23,42,0.5)] hover:from-[#1e293b] hover:to-[#334155] active:scale-95 transition-all uppercase tracking-widest border border-slate-700">
+                      Mulai Hitung Suara
+                  </button>
+              `;
+              document.getElementById('pleno-progress').innerText = `Menunggu Dimulai`;
+              card.classList.remove('scale-105', 'bg-emerald-50', 'border-emerald-200', 'border-2');
+              card.classList.add('bg-white', 'border-transparent');
+              return;
+          }
+          
+          // TAMPILAN 2: HASIL AKHIR (PEMENANG & REKAP)
+          if (plenoState.currentIndex >= plenoState.total) {
+              // Cari pemenang dengan suara terbanyak
+              let maxVotes = -1;
+              let winners = [];
+              appState.candidates.forEach(c => {
+                  if (plenoState.tallies[c.No] > maxVotes) {
+                      maxVotes = plenoState.tallies[c.No];
+                      winners = [c];
+                  } else if (plenoState.tallies[c.No] === maxVotes) {
+                      winners.push(c);
+                  }
+              });
+
+              let winnerHtml = '';
+              if (winners.length === 1) {
+                  const w = winners[0];
+                  const wakilHtml = w["Nama Wakil"] ? `<p class="text-xs font-bold text-slate-500 uppercase tracking-wider mt-0.5">& ${w["Nama Wakil"]}</p>` : '';
+                  winnerHtml = `
+                      <div class="mb-6 relative">
+                          <div class="absolute inset-0 bg-amber-400/20 blur-3xl rounded-full"></div>
+                          <p class="text-amber-500 font-black tracking-widest uppercase mb-4 text-xs drop-shadow-md relative z-10"><i class="fas fa-crown mr-1"></i> Pemenang Pemilihan <i class="fas fa-crown ml-1"></i></p>
+                          <div class="w-36 h-36 mx-auto bg-slate-100 rounded-full border-[6px] border-amber-400 shadow-2xl overflow-hidden mb-4 relative z-10">
+                              <img src="${formatImageUrl(w["Foto URL"])}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/100x100/0f172a/ffffff?text=0${w.No}'"/>
+                          </div>
+                          <h2 class="text-3xl font-black text-slate-800 leading-tight uppercase tracking-wider mt-2 relative z-10 drop-shadow-sm">Paslon ${w.No}</h2>
+                          <p class="text-sm font-bold text-slate-700 uppercase tracking-wider relative z-10 mt-1">${w["Nama Ketua"]}</p>
+                          ${wakilHtml}
+                      </div>
+                  `;
+              } else {
+                  winnerHtml = `
+                      <div class="mb-6 relative">
+                          <div class="absolute inset-0 bg-indigo-400/20 blur-3xl rounded-full"></div>
+                          <p class="text-indigo-500 font-black tracking-widest uppercase mb-3 text-xs relative z-10"><i class="fas fa-exclamation-triangle"></i> Hasil Seri <i class="fas fa-exclamation-triangle"></i></p>
+                          <h2 class="text-2xl font-black text-slate-800 leading-tight uppercase tracking-wider relative z-10 drop-shadow-sm">Perolehan Suara Terbanyak Sama</h2>
+                      </div>
+                  `;
+              }
+
+              let finalResultsHtml = '';
+              appState.candidates.forEach(c => {
+                  finalResultsHtml += `<div class="flex justify-between items-center border-b border-slate-200 py-3 last:border-0"><span class="font-bold text-slate-600 text-xs">Paslon ${c.No}</span><span class="font-black text-indigo-600 text-base bg-indigo-50 px-3 py-1 rounded-lg border border-indigo-100">${plenoState.tallies[c.No]} Suara</span></div>`;
+              });
+
+              content.innerHTML = `
+                  ${winnerHtml}
+                  
+                  <div class="bg-slate-50 rounded-[1.5rem] p-5 text-left border border-slate-200 shadow-inner mt-4 relative z-10">
+                      <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 border-b border-slate-200 pb-3 text-center">Rekap Akhir Suara</p>
+                      ${finalResultsHtml}
+                  </div>
+                  
+                  <button onclick="closePlenoMode()" class="w-full mt-8 bg-white border-2 border-slate-200 text-slate-700 font-black text-sm py-4 rounded-[1.25rem] shadow-sm hover:bg-slate-50 active:scale-95 transition-all uppercase tracking-widest relative z-10">
+                      Tutup Layar Pleno
+                  </button>
+              `;
+              document.getElementById('pleno-progress').innerText = `Selesai (${plenoState.total})`;
+              card.classList.remove('scale-105', 'bg-emerald-50', 'border-emerald-200', 'border-2');
+              card.classList.add('bg-white', 'border-transparent');
+              return;
+          }
+
+          // TAMPILAN 3: MEMBUKA SURAT SUARA
+          const nextIndex = plenoState.currentIndex + 1;
+          document.getElementById('pleno-progress').innerText = `${plenoState.currentIndex} / ${plenoState.total}`;
+
+          content.innerHTML = `
+              <div class="relative">
+                  <div class="absolute inset-0 bg-slate-200/50 blur-3xl rounded-full"></div>
+                  <p class="text-slate-400 font-bold tracking-widest uppercase mb-4 text-xs relative z-10">Surat Suara Ke</p>
+                  <h1 class="text-[120px] leading-none font-black text-transparent bg-clip-text bg-gradient-to-b from-slate-700 to-slate-900 mb-12 tracking-tighter drop-shadow-sm relative z-10">${nextIndex}</h1>
+              </div>
+              <button onclick="revealPlenoBallot()" id="btn-reveal-pleno" class="w-full bg-gradient-to-r from-[#0f172a] to-[#1e293b] text-white font-black text-2xl py-6 rounded-[1.5rem] shadow-[0_15px_35px_-10px_rgba(15,23,42,0.6)] hover:from-[#1e293b] hover:to-[#334155] active:scale-95 transition-all uppercase tracking-widest border border-slate-700">
+                  Buka Suara
+              </button>
+          `;
+          
+          card.classList.remove('scale-105', 'bg-emerald-50', 'border-emerald-200', 'border-2');
+          card.classList.add('bg-white', 'border-transparent');
+      }
+
+      function revealPlenoBallot() {
+          const btn = document.getElementById('btn-reveal-pleno');
+          btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+          btn.disabled = true;
+
+          const card = document.getElementById('pleno-card');
+          
+          // Efek tegang/loading sesaat sebelum surat suara dibuka
+          setTimeout(() => {
+              const vote = plenoState.results[plenoState.currentIndex];
+              const candidateNo = vote["Pilihan (No Paslon)"];
+              const candidate = appState.candidates.find(c => c.No === candidateNo);
+
+              // Tambah poin ke paslon yang terpilih
+              plenoState.tallies[candidateNo]++;
+              
+              // Animasi Kartu membesar dan menjadi hijau
+              card.classList.add('scale-105', 'bg-emerald-50', 'border-2', 'border-emerald-200');
+              card.classList.remove('bg-white', 'border-transparent');
+              
+              const candidateName = candidate ? candidate["Nama Ketua"] : "Tidak Diketahui";
+              const wakilNameHtml = candidate && candidate["Nama Wakil"] ? `<p class="text-xs font-bold text-slate-500 mb-6 uppercase tracking-wider">& ${candidate["Nama Wakil"]}</p>` : '<div class="mb-6"></div>';
+              const candidateImage = candidate ? formatImageUrl(candidate["Foto URL"]) : "";
+
+              document.getElementById('pleno-card-content').innerHTML = `
+                  <div class="animate-[modalEnter_0.3s_ease-out_forwards]">
+                      <p class="text-emerald-600 font-black tracking-widest uppercase mb-6 border border-emerald-200 bg-emerald-100 py-1.5 px-5 rounded-full inline-block text-[10px] shadow-sm">Pilihan Memilih</p>
+                      
+                      <div class="w-36 h-36 mx-auto bg-slate-100 rounded-full border-[6px] border-white shadow-2xl overflow-hidden mb-6 relative z-10">
+                          <img src="${candidateImage}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/100x100/0f172a/ffffff?text=0${candidateNo}'"/>
+                      </div>
+                      
+                      <h2 class="text-3xl font-black text-slate-800 mb-2 leading-tight uppercase tracking-wider drop-shadow-sm">Paslon ${candidateNo}</h2>
+                      <p class="text-sm font-bold text-slate-700 uppercase tracking-wider">${candidateName}</p>
+                      ${wakilNameHtml}
+                      
+                      <div class="relative">
+                          <div class="absolute inset-0 bg-emerald-400/20 blur-2xl rounded-full"></div>
+                          <h1 class="text-[80px] leading-none font-black text-emerald-500 mb-10 tracking-widest uppercase drop-shadow-xl animate-sah relative z-20">SAH!</h1>
+                      </div>
+                      
+                      <button onclick="nextPlenoBallot()" class="w-full bg-gradient-to-r from-emerald-400 to-emerald-600 text-white font-black text-xl py-5 rounded-[1.25rem] shadow-[0_15px_30px_-10px_rgba(16,185,129,0.6)] hover:from-emerald-500 hover:to-emerald-700 active:scale-95 transition-all uppercase tracking-widest flex items-center justify-center gap-3 border border-emerald-400">
+                          Lanjut Suara <i class="fas fa-arrow-right"></i>
+                      </button>
+                  </div>
+              `;
+
+              renderPlenoScoreboard();
+              
+              // Beri Highlight pada papan skor paslon yang bersangkutan
+              const sbItem = document.getElementById(`pleno-score-paslon-${candidateNo}`);
+              if(sbItem) {
+                  sbItem.classList.remove('bg-slate-900/60', 'border-white/10');
+                  sbItem.classList.add('bg-emerald-900/60', 'border-emerald-500/50', 'shadow-[0_0_25px_rgba(16,185,129,0.25)]');
+              }
+              
+              plenoState.currentIndex++;
+              document.getElementById('pleno-progress').innerText = `${plenoState.currentIndex} / ${plenoState.total}`;
+          }, 800);
+      }
+
+      function nextPlenoBallot() {
+          resetPlenoCard();
+      }
+
       window.onload = async () => {
         try {
           const data = await api.getInitialData();
@@ -2290,3 +2601,5 @@
     </script>
   </body>
 </html>
+
+```eof
