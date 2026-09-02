@@ -238,10 +238,10 @@
               <p
                 class="text-[10px] text-slate-400 font-bold uppercase tracking-wider"
               >
-                Partisipasi Suara
+                Partisipasi
               </p>
               <p class="text-sm font-black text-slate-800">
-                Siswa Alkaba Terdaftar Aktif
+                Siswa Terdaftar Aktif
               </p>
             </div>
           </div>
@@ -276,10 +276,18 @@
                 <input
                   type="password"
                   id="inputToken"
-                  class="w-full pl-11 pr-4 py-4 rounded-[1rem] bg-slate-50 border border-slate-200 focus:border-[#0f172a] focus:bg-white focus:ring-1 focus:ring-[#0f172a] outline-none transition text-sm font-bold tracking-[0.2em] placeholder:tracking-normal placeholder-slate-400"
+                  class="w-full pl-11 pr-12 py-4 rounded-[1rem] bg-slate-50 border border-slate-200 focus:border-[#0f172a] focus:bg-white focus:ring-1 focus:ring-[#0f172a] outline-none transition text-sm font-bold tracking-[0.2em] placeholder:tracking-normal placeholder-slate-400"
                   placeholder="Masukkan Token Anda"
                   autocomplete="off"
                 />
+                <button
+                  type="button"
+                  onclick="toggleTokenVisibility()"
+                  class="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400 hover:text-[#0f172a] focus:outline-none transition cursor-pointer"
+                  title="Lihat Token"
+                >
+                  <i id="eye-icon-token" class="fas fa-eye text-sm"></i>
+                </button>
               </div>
             </div>
 
@@ -306,7 +314,7 @@
       <!-- Footer Copyright Login -->
       <div class="absolute bottom-4 md:bottom-6 left-0 w-full text-center z-10 pointer-events-none">
         <p class="text-[11px] text-slate-400 font-medium tracking-wide">
-          Hak Cipta &copy; 2026 Yash Media
+          Hak Cipta &copy; 2026 Komisi Pemilihan Umum Republik Indonesia
         </p>
       </div>
     </div>
@@ -350,7 +358,7 @@
         <!-- Footer Copyright Voting -->
         <div class="mt-12 text-center pb-4">
           <p class="text-[11px] text-slate-400 font-medium tracking-wide">
-            Hak Cipta &copy; 2026 Yash Media
+            Hak Cipta &copy; 2026 Komisi Pemilihan Umum Republik Indonesia
           </p>
         </div>
       </div>
@@ -561,6 +569,7 @@
       </div>
     </div>
 
+    <!-- MODAL ZOOM GAMBAR FULLSCREEN -->
     <div
       id="zoom-modal"
       class="fixed inset-0 bg-[#0f172a]/95 backdrop-blur-xl flex items-center justify-center z-[130] hidden p-4"
@@ -665,10 +674,9 @@
             </a>
         </div>
 
-        <!-- Footer Copyright Admin Login -->
-        <div class="mt-6 text-center border-t border-slate-100 pt-6">
+        <div class="mt-8 text-center border-t border-slate-100 pt-6">
           <p class="text-[10px] text-slate-400 font-medium tracking-wide">
-            Hak Cipta &copy; 2026 Yash Media
+            Hak Cipta &copy; 2026 Komisi Pemilihan Umum Republik Indonesia
           </p>
         </div>
       </div>
@@ -799,6 +807,13 @@
 
         <div class="flex-1 overflow-y-auto p-4 md:p-8 relative">
           <div id="tab-dashboard" class="admin-tab-content fade-in">
+            
+            <div class="flex justify-end gap-3 mb-6">
+              <button onclick="forceRefreshAdminData()" id="btn-refresh-data" class="bg-white hover:bg-indigo-50 text-slate-600 hover:text-indigo-600 px-4 py-2.5 rounded-[1rem] text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 border border-slate-200 shadow-sm">
+                <i class="fas fa-sync-alt"></i> Refresh Data
+              </button>
+            </div>
+
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               <div
                 class="bg-white p-6 rounded-[2rem] shadow-sm border border-slate-100 flex items-center justify-between relative overflow-hidden group hover:shadow-md transition"
@@ -1156,6 +1171,7 @@
       </div>
     </div>
 
+    <!-- MODAL TAMBAH/EDIT PASLON DENGAN TOMBOL HAPUS PREVIEW -->
     <div
       id="candidate-modal"
       class="fixed inset-0 bg-[#0f172a]/40 backdrop-blur-md flex items-center justify-center z-[85] hidden p-4"
@@ -1237,6 +1253,7 @@
           </div>
           
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Upload Foto Container -->
             <div>
               <label
                 class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2"
@@ -1246,6 +1263,7 @@
                 id="edit-photo-preview"
                 class="hidden relative mb-3 p-3 bg-slate-50 rounded-[1rem] border border-slate-200 text-center"
               >
+                <!-- Tombol Hapus Preview Foto -->
                 <button type="button" onclick="removePhotoPreview()" class="absolute top-2 right-2 bg-red-100 hover:bg-red-500 text-red-600 hover:text-white px-2 py-1 rounded-lg flex items-center justify-center transition z-10 shadow-sm text-[10px] font-bold gap-1" title="Hapus Foto">
                   <i class="fas fa-trash-alt"></i> Hapus
                 </button>
@@ -1265,6 +1283,7 @@
               />
             </div>
             
+            <!-- Upload Poster Container -->
             <div>
               <label
                 class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2"
@@ -1274,6 +1293,7 @@
                 id="edit-poster-preview"
                 class="hidden relative mb-3 p-3 bg-slate-50 rounded-[1rem] border border-slate-200 text-center"
               >
+                <!-- Tombol Hapus Preview Poster -->
                 <button type="button" onclick="removePosterPreview()" class="absolute top-2 right-2 bg-red-100 hover:bg-red-500 text-red-600 hover:text-white px-2 py-1 rounded-lg flex items-center justify-center transition z-10 shadow-sm text-[10px] font-bold gap-1" title="Hapus Poster">
                   <i class="fas fa-trash-alt"></i> Hapus
                 </button>
@@ -1324,6 +1344,7 @@
         return url; 
       }
 
+      // FUNGSI HAPUS PREVIEW DARI UI
       function removePhotoPreview() {
         document.getElementById('fotoPaslon').value = "";
         document.getElementById('preview-img').src = "";
@@ -1338,6 +1359,7 @@
         document.getElementById('posterPaslon').dataset.removed = "true";
       }
 
+      // FITUR REAL-TIME PREVIEW SAAT GAMBAR DIPILIH
       document.getElementById('fotoPaslon').addEventListener('change', function() {
         const file = this.files[0];
         if (file) {
@@ -1356,6 +1378,7 @@
         }
       });
 
+      // Data Dummy (Mock)
       let mockStudents = [
         { id: 1, "Nama siswa": "Ahmad Budi Santoso", "Nama Panggilan": "Budi", Kelas: "X-A", Token: "12345", Status: false },
         { id: 2, "Nama siswa": "Siti Aisyah Putri", "Nama Panggilan": "Siti", Kelas: "X-B", Token: "54321", Status: true },
@@ -1647,7 +1670,20 @@
         closeTokenModal();
       }
 
-      // Fungsi untuk mengaktifkan mode Full Screen
+      function toggleTokenVisibility() {
+        const input = document.getElementById("inputToken");
+        const icon = document.getElementById("eye-icon-token");
+        if (input.type === "password") {
+          input.type = "text";
+          icon.classList.remove("fa-eye");
+          icon.classList.add("fa-eye-slash");
+        } else {
+          input.type = "password";
+          icon.classList.remove("fa-eye-slash");
+          icon.classList.add("fa-eye");
+        }
+      }
+
       function enterFullScreen() {
         const elem = document.documentElement;
         if (elem.requestFullscreen) {
@@ -1661,8 +1697,6 @@
 
       document.getElementById("login-form").addEventListener("submit", (e) => {
         e.preventDefault();
-        
-        // Aktifkan mode layar penuh saat pengguna mencoba masuk bilik suara
         enterFullScreen();
 
         const token = document.getElementById("inputToken").value.trim();
@@ -1693,7 +1727,7 @@
         switchView("view-loading");
         document.getElementById("loading-text").innerText = "Menyegarkan Data...";
         
-        // Memuat ulang halaman web secara penuh untuk mengambil data terbaru dari server
+        // Reload untuk clear semua state
         setTimeout(() => {
           location.reload();
         }, 400);
@@ -1706,6 +1740,7 @@
         switchView("view-loading");
         document.getElementById("loading-text").innerText = "Keluar Sistem...";
         
+        // Reload untuk clear semua state
         setTimeout(() => {
           location.reload();
         }, 400);
@@ -1769,8 +1804,8 @@
             try {
               await api.submitVote(appState.currentUser.token, candidateNo);
               
-              // PERBAIKAN: Ubah status token di memori lokal secara otomatis
-              // Agar nama pemilih di form pencarian langsung menjadi abu-abu dan token ditolak saat dilogin ulang.
+              // Mengubah status token di memori lokal secara otomatis
+              // Agar nama pemilih di form pencarian langsung menjadi abu-abu
               const student = appState.students.find((s) => String(s.Token) === String(appState.currentUser.token));
               if (student) {
                 student.Status = true;
@@ -1866,6 +1901,27 @@
 
       function applyGlobalFilter() {
         updateAdminDashboardData();
+      }
+
+      async function forceRefreshAdminData() {
+          const btn = document.getElementById('btn-refresh-data');
+          const originalText = btn.innerHTML;
+          btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memuat...';
+          btn.disabled = true;
+
+          try {
+            const data = await api.getInitialData();
+            appState.students = data.students || [];
+            appState.candidates = data.candidates || [];
+
+            await updateAdminDashboardData();
+            showToast("Data berhasil diperbarui", "success");
+          } catch (e) {
+            showToast("Gagal memperbarui data: " + e.message, "error");
+          } finally {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+          }
       }
 
       function renderReportTable(studentsList = null, results = null) {
