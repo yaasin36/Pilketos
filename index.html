@@ -2309,11 +2309,12 @@
       };
 
       function openPlenoMode() {
-          if (!appState.isReportUnlocked) {
-              showToast("Buka kunci laporan (ikon gembok) terlebih dahulu untuk membaca surat suara!", "error");
-              switchAdminTab('tab-voters');
-              return;
-          }
+          // Buka kunci laporan secara otomatis tanpa PIN
+          appState.isReportUnlocked = true;
+          const unlockBtn = document.getElementById("btn-unlock-report");
+          if(unlockBtn) unlockBtn.classList.add("hidden");
+          renderReportTable(); // Render ulang tabel di belakang layar agar langsung terbuka
+
           if (appState.currentResults.length === 0) {
               showToast("Belum ada suara yang masuk untuk dihitung.", "error");
               return;
