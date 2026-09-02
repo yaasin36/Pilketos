@@ -151,7 +151,7 @@
         <img
           src="img/smai15alazhar.png"
           alt="Logo Sekolah"
-          class="h-16 md:h-20 object-contain drop-shadow-md"
+          class="h-20 md:h-24 object-contain drop-shadow-md"
         />
       </button>
 
@@ -238,10 +238,10 @@
               <p
                 class="text-[10px] text-slate-400 font-bold uppercase tracking-wider"
               >
-                Partisipasi
+                Partisipasi Suara
               </p>
               <p class="text-sm font-black text-slate-800">
-                Siswa Terdaftar Aktif
+                Siswa Alkaba Terdaftar Aktif
               </p>
             </div>
           </div>
@@ -1647,8 +1647,24 @@
         closeTokenModal();
       }
 
+      // Fungsi untuk mengaktifkan mode Full Screen
+      function enterFullScreen() {
+        const elem = document.documentElement;
+        if (elem.requestFullscreen) {
+          elem.requestFullscreen().catch((err) => console.warn(err));
+        } else if (elem.webkitRequestFullscreen) { /* Safari */
+          elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { /* IE11 */
+          elem.msRequestFullscreen();
+        }
+      }
+
       document.getElementById("login-form").addEventListener("submit", (e) => {
         e.preventDefault();
+        
+        // Aktifkan mode layar penuh saat pengguna mencoba masuk bilik suara
+        enterFullScreen();
+
         const token = document.getElementById("inputToken").value.trim();
         if (!token) return showToast("Masukkan Token Anda!", "error");
 
@@ -1672,12 +1688,27 @@
         appState.currentUser = null;
         sessionStorage.removeItem("currentUser");
         document.getElementById("login-form").reset();
-        switchView("view-login");
+        
+        // Tampilkan layar loading sebentar agar transisi natural
+        switchView("view-loading");
+        document.getElementById("loading-text").innerText = "Menyegarkan Data...";
+        
+        // Memuat ulang halaman web secara penuh untuk mengambil data terbaru dari server
+        setTimeout(() => {
+          location.reload();
+        }, 400);
       }
 
       function adminLogout() {
         sessionStorage.removeItem("isAdminLoggedIn");
-        switchView("view-admin-login");
+        
+        // Tampilkan layar loading saat admin keluar
+        switchView("view-loading");
+        document.getElementById("loading-text").innerText = "Keluar Sistem...";
+        
+        setTimeout(() => {
+          location.reload();
+        }, 400);
       }
 
       function renderCandidates() {
@@ -1737,6 +1768,14 @@
             switchView("view-loading");
             try {
               await api.submitVote(appState.currentUser.token, candidateNo);
+              
+              // PERBAIKAN: Ubah status token di memori lokal secara otomatis
+              // Agar nama pemilih di form pencarian langsung menjadi abu-abu dan token ditolak saat dilogin ulang.
+              const student = appState.students.find((s) => String(s.Token) === String(appState.currentUser.token));
+              if (student) {
+                student.Status = true;
+              }
+
               switchView("view-success");
             } catch (e) {
               showToast(e.message, "error");
